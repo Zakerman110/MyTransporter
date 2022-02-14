@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.WebAPI", "Transport.WebAPI\Transport.WebAPI.csproj", "{FDE142C5-48F5-465A-B726-9DA0BA7BEABD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.DAL", "Transport.DAL\Transport.DAL.csproj", "{0F547B70-A8D6-4001-B03E-DBB18813050D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.BLL", "Transport.BLL\Transport.BLL.csproj", "{4DE42B80-B2C1-497F-805E-033FCA6A2546}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDE142C5-48F5-465A-B726-9DA0BA7BEABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE142C5-48F5-465A-B726-9DA0BA7BEABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE142C5-48F5-465A-B726-9DA0BA7BEABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE142C5-48F5-465A-B726-9DA0BA7BEABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F547B70-A8D6-4001-B03E-DBB18813050D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F547B70-A8D6-4001-B03E-DBB18813050D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F547B70-A8D6-4001-B03E-DBB18813050D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F547B70-A8D6-4001-B03E-DBB18813050D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DE42B80-B2C1-497F-805E-033FCA6A2546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE42B80-B2C1-497F-805E-033FCA6A2546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE42B80-B2C1-497F-805E-033FCA6A2546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE42B80-B2C1-497F-805E-033FCA6A2546}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
