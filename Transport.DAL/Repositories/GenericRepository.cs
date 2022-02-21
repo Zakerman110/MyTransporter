@@ -12,7 +12,7 @@ using Transport.DAL.Interfaces.IRepositories;
 
 namespace Transport.DAL.Repositories
 {
-    public class GenericRepository<TEntity, TId> : IGenericRepository<TEntity, TId> where TEntity : IEntity<TId>
+    public abstract class GenericRepository<TEntity, TId> : IGenericRepository<TEntity, TId> where TEntity : IEntity<TId>
     {
         protected IConnectionFactory _connectionFactory;
         private readonly string _tableName;
@@ -23,7 +23,7 @@ namespace Transport.DAL.Repositories
             _tableName = tableName;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
             var query = "GetAllFromTable";
 
@@ -35,7 +35,7 @@ namespace Transport.DAL.Repositories
             }
         }
 
-        public async Task<TEntity> Get(TId Id)
+        public virtual async Task<TEntity> Get(TId Id)
         {
             var query = "GetByIdFromTable";
 
@@ -47,7 +47,7 @@ namespace Transport.DAL.Repositories
             }
         }
 
-        public async Task<int> Add(TEntity entity)
+        public virtual async Task<int> Add(TEntity entity)
         {
             var columns = GetColumns();
             var stringOfColumns = string.Join(", ", columns);
@@ -70,7 +70,7 @@ namespace Transport.DAL.Repositories
             }
         }
 
-        public async Task Update(TEntity entity)
+        public virtual async Task Update(TEntity entity)
         {
             var columns = GetColumns();
             var stringOfColumns = string.Join(", ", columns.Select(e => $"{e} = @{e}"));
@@ -91,7 +91,7 @@ namespace Transport.DAL.Repositories
             }
         }
 
-        public async Task Delete(TEntity entity)
+        public virtual async Task Delete(TEntity entity)
         {
             using (var db = _connectionFactory.GetSqlConnection)
             {
