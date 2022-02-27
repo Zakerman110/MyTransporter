@@ -1,7 +1,29 @@
+using Transport.BLL.Interfaces.Services;
+using Transport.BLL.Services;
+using Transport.DAL.Infrastructure;
+using Transport.DAL.Interfaces;
+using Transport.DAL.Interfaces.IRepositories;
+using Transport.DAL.Repositories;
+using Transport.DAL.UnitOfWork;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+
+#region SQL repositories
+builder.Services.AddTransient<IModelRepository, ModelRepository>();
+#endregion
+
+#region SQL services
+builder.Services.AddTransient<IModelService, ModelService>();
+#endregion
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddTransient<IConnectionFactory, ConnectionFactory>();
+
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 var app = builder.Build();
 
@@ -20,6 +42,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

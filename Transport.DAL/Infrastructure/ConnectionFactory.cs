@@ -34,7 +34,7 @@ namespace Transport.DAL.Infrastructure
                 if (!string.IsNullOrEmpty(_connectionString))
                     connection = new SqlConnection(_connectionString);
                 else
-                    connection = new SqlConnection(_configuration.GetConnectionString("DeffaultConnection"));
+                    connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
                 connection.Open();
 
