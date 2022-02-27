@@ -49,12 +49,12 @@ namespace Transport.DAL.Repositories
             return models;
         }
 
-        public async Task<IEnumerable<MakeModelResponse>> GetAllDetailAsync()
+        public async Task<IEnumerable<Model>> GetAllDetailAsync()
         {
-            List<MakeModelResponse> models = new List<MakeModelResponse>();
+            List<Model> models = new List<Model>();
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
-                string query = "SELECT Mk.Name, Md.Name " +
+                string query = "SELECT Mk.Id, Mk.Name, Md.Id, Md.Name " +
                                "FROM Model AS Md " +
                                "JOIN Make AS Mk " +
                                "ON Md.MakeId == Mk.Id";
@@ -64,9 +64,12 @@ namespace Transport.DAL.Repositories
                 using (SqlDataReader rdr = await cmd.ExecuteReaderAsync())
                     while (await rdr.ReadAsync())
                     {
-                        MakeModelResponse model = new MakeModelResponse();
-                        model.Make = rdr["Mk.Name"].ToString();
-                        model.Model = rdr["Md.Name"].ToString();
+                        Model model = new Model();
+                        model.Id = Convert.ToInt32(rdr["Md.Id"]);
+                        model.Name = rdr["Md.Name"].ToString();
+                        model.MakeId = Convert.ToInt32(rdr["Mk.Id"]);
+                        Make make = new Make() { Id = model.MakeId, Name = rdr["Mk.Name"].ToString() };
+                        model.Make = make;
 
                         models.Add(model);
                     }
