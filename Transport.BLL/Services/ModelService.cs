@@ -22,14 +22,14 @@ namespace Transport.BLL.Services
 
         public async Task<IEnumerable<ModelResponse>> GetAsync()
         {
-            IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllAsync();
-            IEnumerable<ModelResponse> modelsResponse = new List<ModelResponse>();
+            IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllDetailAsync();
+            List<ModelResponse> modelsResponse = new List<ModelResponse>();
             foreach (var model in models)
             {
                 ModelResponse modelResponse = new ModelResponse();
                 modelResponse.Id = model.Id;
                 modelResponse.Name = model.Name;
-                modelResponse.MakeId = model.MakeId;
+                //modelResponse.MakeId = model.MakeId;
 
                 MakeResponse makeResponse = new MakeResponse();
                 makeResponse.Id = model.Make.Id;
@@ -37,7 +37,7 @@ namespace Transport.BLL.Services
 
                 modelResponse.Make = makeResponse;
 
-                modelsResponse.Append(modelResponse);
+                modelsResponse.Add(modelResponse);
             }
             return modelsResponse;
         }

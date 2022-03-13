@@ -54,10 +54,10 @@ namespace Transport.DAL.Repositories
             List<Model> models = new List<Model>();
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
-                string query = "SELECT Mk.Id, Mk.Name, Md.Id, Md.Name " +
+                string query = "SELECT Mk.Id AS MkId, Mk.Name AS MkName, Md.Id AS MdId, Md.Name AS MdName " +
                                "FROM Model AS Md " +
                                "JOIN Make AS Mk " +
-                               "ON Md.MakeId == Mk.Id";
+                               "ON Md.MakeId = Mk.Id";
                 SqlCommand cmd = new SqlCommand(query, con);
                 if (con.State != ConnectionState.Open) await con.OpenAsync();
 
@@ -65,10 +65,10 @@ namespace Transport.DAL.Repositories
                     while (await rdr.ReadAsync())
                     {
                         Model model = new Model();
-                        model.Id = Convert.ToInt32(rdr["Md.Id"]);
-                        model.Name = rdr["Md.Name"].ToString();
-                        model.MakeId = Convert.ToInt32(rdr["Mk.Id"]);
-                        Make make = new Make() { Id = model.MakeId, Name = rdr["Mk.Name"].ToString() };
+                        model.Id = Convert.ToInt32(rdr["MdId"]);
+                        model.Name = rdr["MdName"].ToString();
+                        model.MakeId = Convert.ToInt32(rdr["MkId"]);
+                        Make make = new Make() { Id = model.MakeId, Name = rdr["MkName"].ToString() };
                         model.Make = make;
 
                         models.Add(model);

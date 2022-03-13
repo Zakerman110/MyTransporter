@@ -10,7 +10,7 @@ namespace Transport.BLL.DTO.Response
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public int MakeId { get; set; }
+        //public int MakeId { get; set; }
         public MakeResponse? Make { get; set; }
     }
 }
