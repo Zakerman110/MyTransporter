@@ -107,6 +107,36 @@ namespace Transport.DAL.Repositories
             return model;
         }
 
+        public async Task<Model> GetDetailAsync(int Id)
+        {
+            Model model = new Model();
+            using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
+            {
+                string query = "SELECT Mk.Id AS MkId, Mk.Name AS MkName, Md.Id AS MdId, Md.Name AS MdName " +
+                               "FROM Model AS Md " +
+                               "JOIN Make AS Mk " +
+                               "ON Md.MakeId = Mk.Id " +
+                               "WHERE Md.Id = @id";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlParameter nameParam = new SqlParameter("@id", Id);
+                cmd.Parameters.Add(nameParam);
+
+                if (con.State != ConnectionState.Open) await con.OpenAsync();
+
+                using (SqlDataReader rdr = await cmd.ExecuteReaderAsync())
+                    while (await rdr.ReadAsync())
+                    {
+                        model.Id = Convert.ToInt32(rdr["MdId"]);
+                        model.Name = rdr["MdName"].ToString();
+                        model.MakeId = Convert.ToInt32(rdr["MkId"]);
+                        Make make = new Make() { Id = model.MakeId, Name = rdr["MkName"].ToString() };
+                        model.Make = make;
+                    }
+                await con.CloseAsync();
+            }
+            return model;
+        }
+
         public async Task<int> AddAsync(Model entity)
         {
             int newId = 0;

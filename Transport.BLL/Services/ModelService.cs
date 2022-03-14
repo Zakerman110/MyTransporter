@@ -22,11 +22,26 @@ namespace Transport.BLL.Services
 
         public async Task<IEnumerable<ModelResponse>> GetAsync()
         {
-            IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllDetailAsync();
+            IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllAsync();
             List<ModelResponse> modelsResponse = new List<ModelResponse>();
             foreach (var model in models)
             {
                 ModelResponse modelResponse = new ModelResponse();
+                modelResponse.Id = model.Id;
+                modelResponse.Name = model.Name;
+
+                modelsResponse.Add(modelResponse);
+            }
+            return modelsResponse;
+        }
+
+        public async Task<IEnumerable<ModelMakeResponse>> GetDetailAsync()
+        {
+            IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllDetailAsync();
+            List<ModelMakeResponse> modelsResponse = new List<ModelMakeResponse>();
+            foreach (var model in models)
+            {
+                ModelMakeResponse modelResponse = new ModelMakeResponse();
                 modelResponse.Id = model.Id;
                 modelResponse.Name = model.Name;
                 //modelResponse.MakeId = model.MakeId;
@@ -42,9 +57,30 @@ namespace Transport.BLL.Services
             return modelsResponse;
         }
 
-        public Task<ModelResponse> GetByIdAsync(int id)
+        public async Task<ModelResponse> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Model model = await _unitOfWork.ModelRepository.GetAsync(id);
+            ModelResponse modelResponse = new ModelResponse();
+            modelResponse.Id = model.Id;
+            modelResponse.Name = model.Name;
+            return modelResponse;
+        }
+
+        public async Task<ModelMakeResponse> GetByIdDetailAsync(int id)
+        {
+            Model model = await _unitOfWork.ModelRepository.GetDetailAsync(id);
+            ModelMakeResponse modelResponse = new ModelMakeResponse();
+
+            modelResponse.Id = model.Id;
+            modelResponse.Name = model.Name;
+
+            MakeResponse makeResponse = new MakeResponse();
+            makeResponse.Id = model.Make.Id;
+            makeResponse.Name = model.Make.Name;
+
+            modelResponse.Make = makeResponse;
+
+            return modelResponse;
         }
 
         public Task AddAsync(ModelRequest request)

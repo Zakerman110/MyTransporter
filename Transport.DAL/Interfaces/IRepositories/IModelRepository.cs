@@ -16,6 +16,8 @@ namespace Transport.DAL.Interfaces.IRepositories
 
         Task<Model> GetAsync(int Id);
 
+        Task<Model> GetDetailAsync(int Id);
+
         Task<int> AddAsync(Model entity);
 
         Task UpdateAsync(Model entity);

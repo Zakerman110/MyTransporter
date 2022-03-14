@@ -19,5 +19,26 @@ namespace Transport.WebAPI.Controllers
         {
             return await _modelService.GetAsync();
         }
+
+        [Route("detail")]
+        [HttpGet]
+        public async Task<IEnumerable<ModelMakeResponse>> GetDetail()
+        {
+            return await _modelService.GetDetailAsync();
+        }
+
+        [Route("{Id}")]
+        [HttpGet]
+        public async Task<ModelResponse> GetById(int Id)
+        {
+            return await _modelService.GetByIdAsync(Id);
+        }
+
+        [Route("detail/{Id}")]
+        [HttpGet]
+        public async Task<ModelMakeResponse> GetByIdDetail(int Id)
+        {
+            return await _modelService.GetByIdDetailAsync(Id);
+        }
     }
 }
