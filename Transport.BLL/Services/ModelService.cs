@@ -44,7 +44,6 @@ namespace Transport.BLL.Services
                 ModelMakeResponse modelResponse = new ModelMakeResponse();
                 modelResponse.Id = model.Id;
                 modelResponse.Name = model.Name;
-                //modelResponse.MakeId = model.MakeId;
 
                 MakeResponse makeResponse = new MakeResponse();
                 makeResponse.Id = model.Make.Id;
@@ -83,19 +82,26 @@ namespace Transport.BLL.Services
             return modelResponse;
         }
 
-        public Task AddAsync(ModelRequest request)
+        public async Task AddAsync(ModelRequest request)
         {
-            throw new NotImplementedException();
+            Model model = new Model();
+            model.Name = request.Name;
+            model.MakeId = request.MakeId;
+            await _unitOfWork.ModelRepository.AddAsync(model);
         }
 
-        public Task UpdateAsync(ModelRequest request)
+        public async Task UpdateAsync(ModelRequest request)
         {
-            throw new NotImplementedException();
+            Model model = new Model();
+            model.Id = request.Id;
+            model.Name = request.Name;
+            model.MakeId = request.MakeId;
+            await _unitOfWork.ModelRepository.UpdateAsync(model);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.ModelRepository.DeleteAsync(id);
         }
     }
 }

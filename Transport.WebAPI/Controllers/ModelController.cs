@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Transport.BLL.DTO.Request;
 using Transport.BLL.DTO.Response;
 using Transport.BLL.Interfaces.Services;
 
@@ -39,6 +40,26 @@ namespace Transport.WebAPI.Controllers
         public async Task<ModelMakeResponse> GetByIdDetail(int Id)
         {
             return await _modelService.GetByIdDetailAsync(Id);
+        }
+
+        [HttpPost]
+        public async Task Post([FromBody] ModelRequest model)
+        {
+            await _modelService.AddAsync(model);
+        }
+
+        [Route("{id?}")]
+        [HttpPut]
+        public async Task Put([FromBody] ModelRequest model)
+        {
+            await _modelService.UpdateAsync(model);
+        }
+
+        [Route("{id?}")]
+        [HttpDelete]
+        public async Task Delete([FromBody] int Id)
+        {
+            await _modelService.DeleteAsync(Id);
         }
     }
 }

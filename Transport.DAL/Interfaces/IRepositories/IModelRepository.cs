@@ -22,6 +22,6 @@ namespace Transport.DAL.Interfaces.IRepositories
 
         Task UpdateAsync(Model entity);
 
-        Task DeleteAsync(Model entity);
+        Task DeleteAsync(int Id);
     }
 }

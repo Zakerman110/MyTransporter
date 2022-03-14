@@ -190,7 +190,7 @@ namespace Transport.DAL.Repositories
             }
         }
 
-        public async Task DeleteAsync(Model entity)
+        public async Task DeleteAsync(int Id)
         {
             string tableName = "Model";
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
@@ -198,7 +198,7 @@ namespace Transport.DAL.Repositories
                 SqlCommand cmd = new SqlCommand("DeleteFromTable", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@P_tableName", tableName);
-                cmd.Parameters.AddWithValue("@P_Id", entity.Id.ToString());
+                cmd.Parameters.AddWithValue("@P_Id", Id.ToString());
                 if (con.State != ConnectionState.Open) await con.OpenAsync();
                 cmd.ExecuteNonQuery();
                 await con.CloseAsync();
