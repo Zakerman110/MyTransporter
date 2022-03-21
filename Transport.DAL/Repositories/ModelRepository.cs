@@ -142,8 +142,8 @@ namespace Transport.DAL.Repositories
             int newId = 0;
             var columns = GetColumns();
             string tableName = "Model";
-            var stringOfColumns = string.Join(", ", columns);
-            var stringOfProperties = string.Join(", ", columns.Select(e => "@" + e));
+            var stringOfColumns = string.Join(", ", columns.Where(e => e != "Make"));
+            var stringOfProperties = string.Join(", ", columns.Where(e => e != "Make").Select(e => "@" + e));
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
                 SqlCommand cmd = new SqlCommand("InsertToTable", con);
@@ -169,7 +169,7 @@ namespace Transport.DAL.Repositories
         {
             var columns = GetColumns();
             string tableName = "Model";
-            var stringOfColumns = string.Join(", ", columns.Where(e => e != "DateCreated").Select(e => $"{e} = @{e}"));
+            var stringOfColumns = string.Join(", ", columns.Where(e => e != "Make").Select(e => $"{e} = @{e}"));
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
                 SqlCommand cmd = new SqlCommand("UpdateInTable", con);
@@ -185,7 +185,7 @@ namespace Transport.DAL.Repositories
 
                 cmd.Parameters.AddWithValue("@Name", entity.Name);
                 cmd.Parameters.AddWithValue("@MakeId", entity.MakeId);
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
                 await con.CloseAsync();
             }
         }
