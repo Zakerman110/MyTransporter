@@ -107,7 +107,8 @@ namespace Transport.DAL.Repositories
         {
             return typeof(TEntity)
                     .GetProperties()
-                    .Where(e => e.Name != "Id" && !e.PropertyType.GetTypeInfo().IsGenericType)
+                    .Where(e => e.Name != "Id" && !e.PropertyType.GetTypeInfo().IsGenericType && !(e.PropertyType.IsClass
+                            && !e.PropertyType.FullName.StartsWith("System.")))
                     .Select(e => e.Name);
         }
     }
