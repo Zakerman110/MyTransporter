@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,88 +15,47 @@ namespace Transport.BLL.Services
     public class ModelService : IModelService
     {
         private readonly IUnitOfWork _unitOfWork;
+        IMapper _mapper;
 
-        public ModelService(IUnitOfWork unitOfWork)
+        public ModelService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ModelResponse>> GetAsync()
         {
             IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllAsync();
-            List<ModelResponse> modelsResponse = new List<ModelResponse>();
-            foreach (var model in models)
-            {
-                ModelResponse modelResponse = new ModelResponse();
-                modelResponse.Id = model.Id;
-                modelResponse.Name = model.Name;
-
-                modelsResponse.Add(modelResponse);
-            }
-            return modelsResponse;
+            return models.Select(_mapper.Map<Model, ModelResponse>);
         }
 
         public async Task<IEnumerable<ModelMakeResponse>> GetDetailAsync()
         {
             IEnumerable<Model> models = await _unitOfWork.ModelRepository.GetAllDetailAsync();
-            List<ModelMakeResponse> modelsResponse = new List<ModelMakeResponse>();
-            foreach (var model in models)
-            {
-                ModelMakeResponse modelResponse = new ModelMakeResponse();
-                modelResponse.Id = model.Id;
-                modelResponse.Name = model.Name;
-
-                MakeResponse makeResponse = new MakeResponse();
-                makeResponse.Id = model.Make.Id;
-                makeResponse.Name = model.Make.Name;
-
-                modelResponse.Make = makeResponse;
-
-                modelsResponse.Add(modelResponse);
-            }
-            return modelsResponse;
+            return models.Select(_mapper.Map<Model, ModelMakeResponse>);
         }
 
         public async Task<ModelResponse> GetByIdAsync(int id)
         {
             Model model = await _unitOfWork.ModelRepository.GetAsync(id);
-            ModelResponse modelResponse = new ModelResponse();
-            modelResponse.Id = model.Id;
-            modelResponse.Name = model.Name;
-            return modelResponse;
+            return _mapper.Map<Model, ModelResponse>(model);
         }
 
         public async Task<ModelMakeResponse> GetByIdDetailAsync(int id)
         {
             Model model = await _unitOfWork.ModelRepository.GetDetailAsync(id);
-            ModelMakeResponse modelResponse = new ModelMakeResponse();
-
-            modelResponse.Id = model.Id;
-            modelResponse.Name = model.Name;
-
-            MakeResponse makeResponse = new MakeResponse();
-            makeResponse.Id = model.Make.Id;
-            makeResponse.Name = model.Make.Name;
-
-            modelResponse.Make = makeResponse;
-
-            return modelResponse;
+            return _mapper.Map<Model, ModelMakeResponse>(model);
         }
 
         public async Task AddAsync(ModelRequest request)
         {
-            Model model = new Model();
-            model.Name = request.Name;
-            model.MakeId = request.MakeId;
+            var model = _mapper.Map<ModelRequest, Model>(request);
             await _unitOfWork.ModelRepository.AddAsync(model);
         }
 
         public async Task UpdateAsync(ModelRequest request)
         {
-            Model model = new Model();
-            model.Id = request.Id;
-            model.Name = request.Name;
-            model.MakeId = request.MakeId;
+            var model = _mapper.Map<ModelRequest, Model>(request);
             await _unitOfWork.ModelRepository.UpdateAsync(model);
         }
 
