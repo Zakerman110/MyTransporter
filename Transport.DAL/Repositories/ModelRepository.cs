@@ -49,24 +49,27 @@ namespace Transport.DAL.Repositories
             return models;
         }
 
-        public async Task<IEnumerable<MakeModelResponse>> GetAllDetailAsync()
+        public async Task<IEnumerable<Model>> GetAllDetailAsync()
         {
-            List<MakeModelResponse> models = new List<MakeModelResponse>();
+            List<Model> models = new List<Model>();
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
-                string query = "SELECT Mk.Name, Md.Name " +
+                string query = "SELECT Mk.Id AS MkId, Mk.Name AS MkName, Md.Id AS MdId, Md.Name AS MdName " +
                                "FROM Model AS Md " +
                                "JOIN Make AS Mk " +
-                               "ON Md.MakeId == Mk.Id";
+                               "ON Md.MakeId = Mk.Id";
                 SqlCommand cmd = new SqlCommand(query, con);
                 if (con.State != ConnectionState.Open) await con.OpenAsync();
 
                 using (SqlDataReader rdr = await cmd.ExecuteReaderAsync())
                     while (await rdr.ReadAsync())
                     {
-                        MakeModelResponse model = new MakeModelResponse();
-                        model.Make = rdr["Mk.Name"].ToString();
-                        model.Model = rdr["Md.Name"].ToString();
+                        Model model = new Model();
+                        model.Id = Convert.ToInt32(rdr["MdId"]);
+                        model.Name = rdr["MdName"].ToString();
+                        model.MakeId = Convert.ToInt32(rdr["MkId"]);
+                        Make make = new Make() { Id = model.MakeId, Name = rdr["MkName"].ToString() };
+                        model.Make = make;
 
                         models.Add(model);
                     }
@@ -104,13 +107,43 @@ namespace Transport.DAL.Repositories
             return model;
         }
 
+        public async Task<Model> GetDetailAsync(int Id)
+        {
+            Model model = new Model();
+            using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
+            {
+                string query = "SELECT Mk.Id AS MkId, Mk.Name AS MkName, Md.Id AS MdId, Md.Name AS MdName " +
+                               "FROM Model AS Md " +
+                               "JOIN Make AS Mk " +
+                               "ON Md.MakeId = Mk.Id " +
+                               "WHERE Md.Id = @id";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlParameter nameParam = new SqlParameter("@id", Id);
+                cmd.Parameters.Add(nameParam);
+
+                if (con.State != ConnectionState.Open) await con.OpenAsync();
+
+                using (SqlDataReader rdr = await cmd.ExecuteReaderAsync())
+                    while (await rdr.ReadAsync())
+                    {
+                        model.Id = Convert.ToInt32(rdr["MdId"]);
+                        model.Name = rdr["MdName"].ToString();
+                        model.MakeId = Convert.ToInt32(rdr["MkId"]);
+                        Make make = new Make() { Id = model.MakeId, Name = rdr["MkName"].ToString() };
+                        model.Make = make;
+                    }
+                await con.CloseAsync();
+            }
+            return model;
+        }
+
         public async Task<int> AddAsync(Model entity)
         {
             int newId = 0;
             var columns = GetColumns();
             string tableName = "Model";
-            var stringOfColumns = string.Join(", ", columns);
-            var stringOfProperties = string.Join(", ", columns.Select(e => "@" + e));
+            var stringOfColumns = string.Join(", ", columns.Where(e => e != "Make"));
+            var stringOfProperties = string.Join(", ", columns.Where(e => e != "Make").Select(e => "@" + e));
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
                 SqlCommand cmd = new SqlCommand("InsertToTable", con);
@@ -136,7 +169,7 @@ namespace Transport.DAL.Repositories
         {
             var columns = GetColumns();
             string tableName = "Model";
-            var stringOfColumns = string.Join(", ", columns.Where(e => e != "DateCreated").Select(e => $"{e} = @{e}"));
+            var stringOfColumns = string.Join(", ", columns.Where(e => e != "Make").Select(e => $"{e} = @{e}"));
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
             {
                 SqlCommand cmd = new SqlCommand("UpdateInTable", con);
@@ -152,12 +185,12 @@ namespace Transport.DAL.Repositories
 
                 cmd.Parameters.AddWithValue("@Name", entity.Name);
                 cmd.Parameters.AddWithValue("@MakeId", entity.MakeId);
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
                 await con.CloseAsync();
             }
         }
 
-        public async Task DeleteAsync(Model entity)
+        public async Task DeleteAsync(int Id)
         {
             string tableName = "Model";
             using (SqlConnection con = (SqlConnection)_connectionFactory.GetSqlConnection)
@@ -165,7 +198,7 @@ namespace Transport.DAL.Repositories
                 SqlCommand cmd = new SqlCommand("DeleteFromTable", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@P_tableName", tableName);
-                cmd.Parameters.AddWithValue("@P_Id", entity.Id.ToString());
+                cmd.Parameters.AddWithValue("@P_Id", Id.ToString());
                 if (con.State != ConnectionState.Open) await con.OpenAsync();
                 cmd.ExecuteNonQuery();
                 await con.CloseAsync();

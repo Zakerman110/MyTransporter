@@ -12,14 +12,16 @@ namespace Transport.DAL.Interfaces.IRepositories
     {
         Task<IEnumerable<Model>> GetAllAsync();
 
-        Task<IEnumerable<MakeModelResponse>> GetAllDetailAsync();
+        Task<IEnumerable<Model>> GetAllDetailAsync();
 
         Task<Model> GetAsync(int Id);
+
+        Task<Model> GetDetailAsync(int Id);
 
         Task<int> AddAsync(Model entity);
 
         Task UpdateAsync(Model entity);
 
-        Task DeleteAsync(Model entity);
+        Task DeleteAsync(int Id);
     }
 }
