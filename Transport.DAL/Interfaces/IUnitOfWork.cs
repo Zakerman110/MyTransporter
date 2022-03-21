@@ -10,6 +10,7 @@ namespace Transport.DAL.Interfaces
     public interface IUnitOfWork
     {
         IModelRepository ModelRepository { get; }
+        IVehicleRepository VehicleRepository { get; }
 
         Task Complete();
     }

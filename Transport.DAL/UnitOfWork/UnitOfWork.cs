@@ -11,10 +11,12 @@ namespace Transport.DAL.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IModelRepository _modelRepository;
+        private readonly IVehicleRepository _vehicleRepository;
 
-        public UnitOfWork(IModelRepository modelRepository)
+        public UnitOfWork(IModelRepository modelRepository, IVehicleRepository vehicleRepository)
         {
             _modelRepository = modelRepository;
+            _vehicleRepository = vehicleRepository;
         }
 
         public Task Complete()
@@ -23,6 +25,7 @@ namespace Transport.DAL.UnitOfWork
         }
 
         public IModelRepository ModelRepository => _modelRepository;
+        public IVehicleRepository VehicleRepository => _vehicleRepository;
 
     }
 }

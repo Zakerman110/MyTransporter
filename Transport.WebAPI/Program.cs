@@ -13,10 +13,12 @@ builder.Services.AddControllers();
 
 #region SQL repositories
 builder.Services.AddTransient<IModelRepository, ModelRepository>();
+builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
 #endregion
 
 #region SQL services
 builder.Services.AddTransient<IModelService, ModelService>();
+builder.Services.AddTransient<IVehicleService, VehicleService>();
 #endregion
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
