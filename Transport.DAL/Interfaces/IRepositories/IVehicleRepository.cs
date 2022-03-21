@@ -10,5 +10,6 @@ namespace Transport.DAL.Interfaces.IRepositories
     public interface IVehicleRepository : IGenericRepository<Vehicle, int>
     {
         Task<IEnumerable<Vehicle>> GetAllDetailAsync();
+        Task<Vehicle> GetDetailAsync(int Id);
     }
 }

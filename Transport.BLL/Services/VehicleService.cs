@@ -72,9 +72,24 @@ namespace Transport.BLL.Services
             return vehicleResponse;
         }
 
-        public Task<VehicleModelResponse> GetByIdDetailAsync(int id)
+        public async Task<VehicleModelResponse> GetByIdDetailAsync(int id)
         {
-            throw new NotImplementedException();
+            Vehicle vehicle = await _unitOfWork.VehicleRepository.GetDetailAsync(id);
+            VehicleModelResponse vehicleResponse = new VehicleModelResponse();
+
+            vehicleResponse.Id = vehicle.Id;
+            vehicleResponse.Plate = vehicle.Plate;
+            vehicleResponse.Type = vehicle.Type;
+            vehicleResponse.IsAvailable = vehicle.IsAvailable;
+            vehicleResponse.AutobaseId = vehicle.AutobaseId;
+
+            ModelResponse modelResponse = new ModelResponse();
+            modelResponse.Id = vehicle.Model.Id;
+            modelResponse.Name = vehicle.Model.Name;
+
+            vehicleResponse.Model = modelResponse;
+
+            return vehicleResponse;
         }
 
         public async Task AddAsync(VehicleRequest request)

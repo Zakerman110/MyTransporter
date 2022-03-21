@@ -35,5 +35,25 @@ namespace Transport.DAL.Repositories
                 splitOn: "Id");
             }
         }
+
+        public async Task<Vehicle> GetDetailAsync(int Id)
+        {
+            var query = @"SELECT v.Id, Plate, Type, IsAvailable, AutobaseId, ModelId, m.Id, Name, MakeId
+                FROM Vehicle AS v 
+                INNER JOIN model AS m 
+                ON ModelId = m.Id
+                WHERE v.Id = @id";
+
+            using (var db = _connectionFactory.GetSqlConnection)
+            {
+                var result = await db.QueryAsync<Vehicle, Model, Vehicle>(query, (vehicle, model) => {
+                    vehicle.Model = model;
+                    return vehicle;
+                }, new { id = Id },
+                splitOn: "Id");
+
+                return result.FirstOrDefault();
+            }
+        }
     }
 }
