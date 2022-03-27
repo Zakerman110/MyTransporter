@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Transport.BLL.DTO.Response
+{
+    public class ModelMakeResponse
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public MakeResponse? Make { get; set; }
+    }
+}
