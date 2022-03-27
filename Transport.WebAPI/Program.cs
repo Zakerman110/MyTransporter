@@ -27,6 +27,8 @@ builder.Services.AddTransient<IConnectionFactory, ConnectionFactory>();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

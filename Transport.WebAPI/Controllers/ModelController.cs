@@ -5,6 +5,7 @@ using Transport.BLL.Interfaces.Services;
 
 namespace Transport.WebAPI.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class ModelController : ControllerBase
     {
@@ -16,50 +17,111 @@ namespace Transport.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ModelResponse>> Get()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<ModelResponse>>> Get()
         {
-            return await _modelService.GetAsync();
+            try
+            {
+                var models = await _modelService.GetAsync();
+                return Ok(models);
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
         }
 
         [Route("detail")]
         [HttpGet]
-        public async Task<IEnumerable<ModelMakeResponse>> GetDetail()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<ModelMakeResponse>>> GetDetail()
         {
-            return await _modelService.GetDetailAsync();
+            try
+            {
+                var models = await _modelService.GetDetailAsync();
+                return Ok(models);
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
         }
 
         [Route("{Id}")]
         [HttpGet]
-        public async Task<ModelResponse> GetById(int Id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ModelResponse>> GetById(int Id)
         {
-            return await _modelService.GetByIdAsync(Id);
+            return Ok(await _modelService.GetByIdAsync(Id));
         }
 
         [Route("detail/{Id}")]
         [HttpGet]
-        public async Task<ModelMakeResponse> GetByIdDetail(int Id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ModelMakeResponse>> GetByIdDetail(int Id)
         {
-            return await _modelService.GetByIdDetailAsync(Id);
+            return Ok(await _modelService.GetByIdDetailAsync(Id));
         }
 
         [HttpPost]
-        public async Task Post([FromBody] ModelRequest model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Post([FromBody] ModelRequest model)
         {
-            await _modelService.AddAsync(model);
+            try
+            {
+                await _modelService.AddAsync(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
         }
 
         [Route("{id?}")]
         [HttpPut]
-        public async Task Put([FromBody] ModelRequest model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Put([FromBody] ModelRequest model)
         {
-            await _modelService.UpdateAsync(model);
+            try
+            {
+                await _modelService.UpdateAsync(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
         }
 
         [Route("{id?}")]
         [HttpDelete]
-        public async Task Delete([FromBody] int Id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Delete([FromBody] int Id)
         {
-            await _modelService.DeleteAsync(Id);
+            try
+            {
+                await _modelService.DeleteAsync(Id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
         }
     }
 }
