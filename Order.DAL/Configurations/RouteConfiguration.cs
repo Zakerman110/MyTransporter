@@ -13,19 +13,15 @@ namespace Order.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Route> builder)
         {
-            builder.Property(team => team.Id)
-                   .UseIdentityColumn()
-                   .IsRequired();
-
             builder.HasOne(r => r.StartPoint)
                    .WithMany(c => c.StartPoints)
-                   .HasForeignKey(r => r.StartPoint)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .HasForeignKey(r => r.StartPointId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(r => r.EndPoint)
                    .WithMany(c => c.EndPoints)
-                   .HasForeignKey(r => r.EndPoint)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .HasForeignKey(r => r.EndPointId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
