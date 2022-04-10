@@ -1,16 +1,44 @@
 using Microsoft.EntityFrameworkCore;
+using Order.BLL.Interfaces.Services;
+using Order.BLL.Services;
 using Order.DAL;
+using Order.DAL.Interfaces;
+using Order.DAL.Interfaces.Repositories;
+using Order.DAL.Repositories;
+using Order.DAL.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<MyTransporterOrderContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString);
 });
+
+#region SQL repositories
+builder.Services.AddTransient<ICountryRepository, CountryRepository>();
+builder.Services.AddTransient<IRegionRepository, RegionRepository>();
+builder.Services.AddTransient<ICityRepository, CityRepository>();
+builder.Services.AddTransient<IRouteRepository, RouteRepository>();
+builder.Services.AddTransient<IJourneyRepository, JourneyRepository>();
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+#endregion
+
+#region SQL services
+builder.Services.AddTransient<ICountryService, CountryService>();
+//builder.Services.AddTransient<IRegionService, RegionService>();
+//builder.Services.AddTransient<ICityService, CityService>();
+//builder.Services.AddTransient<IRouteService, RouteService>();
+//builder.Services.AddTransient<IJourneyService, JourneyService>();
+//builder.Services.AddTransient<IOrderService, OrderService>();
+#endregion
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -29,6 +57,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Order.BLL.Interfaces.Services
 {
-    public interface IRouteResponse
+    public interface IRouteService
     {
         Task<IEnumerable<RouteResponse>> GetAsync();
         Task<RouteResponse> GetByIdAsync(int id);
