@@ -12,8 +12,7 @@ namespace Order.DAL.Interfaces.Repositories
         Task Create(TEntity item);
         Task<TEntity> FindById(int id);
         Task<IEnumerable<TEntity>> Get();
-        Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate);
-        Task Remove(TEntity item);
+        Task Remove(int id);
         Task Update(TEntity item);
     }
 }

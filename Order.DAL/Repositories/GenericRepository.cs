@@ -1,4 +1,5 @@
-﻿using Order.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Order.DAL.Entities;
 using Order.DAL.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,34 +11,39 @@ namespace Order.DAL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        public Task Create(TEntity item)
+        protected readonly MyTransporterOrderContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
+
+        public GenericRepository(MyTransporterOrderContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
-        public Task<TEntity> FindById(int id)
+        public async Task Create(TEntity item)
         {
-            throw new NotImplementedException();
+            await _dbSet.AddAsync(item);
         }
 
-        public Task<IEnumerable<TEntity>> Get()
+        public async Task<TEntity> FindById(int id)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(id) ?? throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> Get()
         {
-            throw new NotImplementedException();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public Task Remove(TEntity item)
+        public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            var entity = await FindById(id);
+            _dbSet.Remove(entity);
         }
 
-        public Task Update(TEntity item)
+        public async Task Update(TEntity item)
         {
-            throw new NotImplementedException();
+            await Task.Run(() => _dbSet.Update(item));
         }
     }
 }
