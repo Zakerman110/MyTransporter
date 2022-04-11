@@ -9,5 +9,6 @@ namespace Order.DAL.Interfaces.Repositories
 {
     public interface IJourneyRepository : IGenericRepository<Journey>
     {
+        public Task<Journey> GetDetail(int id);
     }
 }

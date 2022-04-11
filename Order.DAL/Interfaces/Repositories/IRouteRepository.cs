@@ -9,5 +9,6 @@ namespace Order.DAL.Interfaces.Repositories
 {
     public interface IRouteRepository : IGenericRepository<Route>
     {
+        public Task<Route> GetDetail(int id);
     }
 }

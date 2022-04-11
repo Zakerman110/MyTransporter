@@ -11,7 +11,9 @@ namespace Order.BLL.Interfaces.Services
     public interface IRouteService
     {
         Task<IEnumerable<RouteResponse>> GetAsync();
+        Task<IEnumerable<RouteResponse>> GetDetailAsync();
         Task<RouteResponse> GetByIdAsync(int id);
+        Task<RouteResponse> GetByIdDetailAsync(int id);
         Task AddAsync(RouteRequest request);
         Task UpdateAsync(RouteRequest request);
         Task DeleteAsync(int id);
