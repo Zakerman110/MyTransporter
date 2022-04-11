@@ -1,4 +1,5 @@
-﻿using Order.DAL.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Order.DAL.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,14 @@ namespace Order.DAL.Repositories
     {
         public OrderRepository(MyTransporterOrderContext context) : base(context)
         {
+        }
+        public async Task<Entities.Order> GetDetail(int id)
+        {
+            var order = await _dbSet.Include(order => order.Route)
+                                     .Include(order => order.Journey)
+                                     .SingleOrDefaultAsync(order => order.Id == id);
+
+            return order;
         }
     }
 }

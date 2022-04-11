@@ -8,5 +8,6 @@ namespace Order.DAL.Interfaces.Repositories
 {
     public interface IOrderRepository : IGenericRepository<Entities.Order>
     {
+        public Task<Entities.Order> GetDetail(int id);
     }
 }

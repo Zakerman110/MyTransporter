@@ -33,7 +33,7 @@ builder.Services.AddTransient<IRegionService, RegionService>();
 builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IRouteService, RouteService>();
 builder.Services.AddTransient<IJourneyService, JourneyService>();
-//builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 #endregion
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
