@@ -7,24 +7,24 @@ namespace Order.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CountryController : ControllerBase
+    public class RegionController : ControllerBase
     {
-        ICountryService _countryService;
+        IRegionService _regionService;
 
-        public CountryController(ICountryService countryService)
+        public RegionController(IRegionService regionService)
         {
-            _countryService = countryService;
+            _regionService = regionService;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<CountryResponse>>> Get()
+        public async Task<ActionResult<IEnumerable<RegionResponse>>> Get()
         {
             try
             {
-                var countries = await _countryService.GetAsync();
-                return Ok(countries);
+                var regions = await _regionService.GetAsync();
+                return Ok(regions);
             }
             catch (Exception e)
             {
@@ -38,20 +38,30 @@ namespace Order.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<CountryResponse>> GetById(int Id)
+        public async Task<ActionResult<RegionResponse>> GetById(int Id)
         {
-            return Ok(await _countryService.GetByIdAsync(Id));
+            return Ok(await _regionService.GetByIdAsync(Id));
+        }
+
+        [Route("detail/{Id}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<RegionResponse>> GetByIdDetail(int Id)
+        {
+            return Ok(await _regionService.GetByIdDetailAsync(Id));
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Post([FromBody] CountryRequest country)
+        public async Task<ActionResult> Post([FromBody] RegionRequest region)
         {
             try
             {
-                await _countryService.AddAsync(country);
+                await _regionService.AddAsync(region);
                 return Ok();
             }
             catch (Exception e)
@@ -65,11 +75,11 @@ namespace Order.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Put([FromBody] CountryRequest country)
+        public async Task<ActionResult> Put([FromBody] RegionRequest region)
         {
             try
             {
-                await _countryService.UpdateAsync(country);
+                await _regionService.UpdateAsync(region);
                 return Ok();
             }
             catch (Exception e)
@@ -87,7 +97,7 @@ namespace Order.WebAPI.Controllers
         {
             try
             {
-                await _countryService.DeleteAsync(Id);
+                await _regionService.DeleteAsync(Id);
                 return Ok();
             }
             catch (Exception e)

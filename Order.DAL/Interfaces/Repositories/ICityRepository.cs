@@ -9,5 +9,6 @@ namespace Order.DAL.Interfaces.Repositories
 {
     public interface ICityRepository : IGenericRepository<City>
     {
+        public Task<City> GetDetail(int id);
     }
 }

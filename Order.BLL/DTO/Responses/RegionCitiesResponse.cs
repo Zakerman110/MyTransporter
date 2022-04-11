@@ -9,7 +9,7 @@ namespace Order.BLL.DTO.Responses
     public class RegionCitiesResponse
     {
         public string Name { get; set; }
-        public int CountryId { get; set; }
+        public CountryResponse Country { get; set; }
         public IEnumerable<CityResponse> Cities { get; set; }
     }
 }

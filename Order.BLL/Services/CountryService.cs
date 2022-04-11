@@ -34,9 +34,10 @@ namespace Order.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<CountryResponse> GetByIdAsync(int id)
+        public async Task<CountryResponse> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var country = await _unitOfWork.CountryRepository.FindById(id);
+            return _mapper.Map<Country, CountryResponse>(country);
         }
 
         public Task<CountryRegionsResponse> GetByIdDetailAsync(int id)
@@ -45,19 +46,24 @@ namespace Order.BLL.Services
         }
 
 
-        public Task AddAsync(CountryRequest request)
+        public async Task AddAsync(CountryRequest request)
         {
-            throw new NotImplementedException();
+            var country = _mapper.Map<CountryRequest, Country>(request);
+            await _unitOfWork.CountryRepository.Create(country);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(CountryRequest request)
+        public async Task UpdateAsync(CountryRequest request)
         {
-            throw new NotImplementedException();
+            var country = _mapper.Map<CountryRequest, Country>(request);
+            await _unitOfWork.CountryRepository.Update(country);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CountryRepository.Remove(id);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }
