@@ -21,6 +21,12 @@ namespace Order.BLL.Configurations
             CreateMap<Region, RegionCitiesResponse>();
             CreateMap<CityRequest, City>();
             CreateMap<City, CityResponse>();
+            CreateMap<RouteRequest, Route>();
+            CreateMap<Route, RouteResponse>();
+            CreateMap<JourneyRequest, Journey>();
+            CreateMap<Journey, JourneyResponse>();
+            CreateMap<OrderRequest, DAL.Entities.Order>();
+            CreateMap<DAL.Entities.Order, OrderResponse>();
         }
     }
 }
