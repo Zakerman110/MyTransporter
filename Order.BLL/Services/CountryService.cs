@@ -46,11 +46,12 @@ namespace Order.BLL.Services
         }
 
 
-        public async Task AddAsync(CountryRequest request)
+        public async Task<CountryResponse> AddAsync(CountryRequest request)
         {
             var country = _mapper.Map<CountryRequest, Country>(request);
             await _unitOfWork.CountryRepository.Create(country);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<Country, CountryResponse>(country);
         }
 
         public async Task UpdateAsync(CountryRequest request)

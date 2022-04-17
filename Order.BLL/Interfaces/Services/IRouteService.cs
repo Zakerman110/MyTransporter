@@ -14,7 +14,7 @@ namespace Order.BLL.Interfaces.Services
         Task<IEnumerable<RouteResponse>> GetDetailAsync();
         Task<RouteResponse> GetByIdAsync(int id);
         Task<RouteResponse> GetByIdDetailAsync(int id);
-        Task AddAsync(RouteRequest request);
+        Task<RouteResponse> AddAsync(RouteRequest request);
         Task UpdateAsync(RouteRequest request);
         Task DeleteAsync(int id);
     }

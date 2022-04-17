@@ -47,11 +47,12 @@ namespace Order.BLL.Services
         }
 
 
-        public async Task AddAsync(RegionRequest request)
+        public async Task<RegionResponse> AddAsync(RegionRequest request)
         {
             var region = _mapper.Map<RegionRequest, Region>(request);
             await _unitOfWork.RegionRepository.Create(region);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<Region, RegionResponse>(region);
         }
 
         public async Task UpdateAsync(RegionRequest request)

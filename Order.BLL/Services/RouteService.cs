@@ -47,11 +47,12 @@ namespace Order.BLL.Services
         }
 
 
-        public async Task AddAsync(RouteRequest request)
+        public async Task<RouteResponse> AddAsync(RouteRequest request)
         {
             var route = _mapper.Map<RouteRequest, Route>(request);
             await _unitOfWork.RouteRepository.Create(route);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<Route, RouteResponse>(route);
         }
 
         public async Task UpdateAsync(RouteRequest request)

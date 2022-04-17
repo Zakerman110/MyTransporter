@@ -47,11 +47,12 @@ namespace Order.BLL.Services
         }
 
 
-        public async Task AddAsync(OrderRequest request)
+        public async Task<OrderResponse> AddAsync(OrderRequest request)
         {
             var order = _mapper.Map<OrderRequest, DAL.Entities.Order>(request);
             await _unitOfWork.OrdersRepository.Create(order);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<DAL.Entities.Order, OrderResponse>(order);
         }
 
         public async Task UpdateAsync(OrderRequest request)

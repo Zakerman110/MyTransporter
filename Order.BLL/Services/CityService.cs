@@ -47,11 +47,12 @@ namespace Order.BLL.Services
         }
 
 
-        public async Task AddAsync(CityRequest request)
+        public async Task<CityResponse> AddAsync(CityRequest request)
         {
             var city = _mapper.Map<CityRequest, City>(request);
             await _unitOfWork.CityRepository.Create(city);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<City, CityResponse>(city);
         }
 
         public async Task UpdateAsync(CityRequest request)

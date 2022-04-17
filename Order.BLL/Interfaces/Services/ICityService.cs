@@ -14,7 +14,7 @@ namespace Order.BLL.Interfaces.Services
         Task<IEnumerable<CityResponse>> GetDetailAsync();
         Task<CityResponse> GetByIdAsync(int id);
         Task<CityResponse> GetByIdDetailAsync(int id);
-        Task AddAsync(CityRequest request);
+        Task<CityResponse> AddAsync(CityRequest request);
         Task UpdateAsync(CityRequest request);
         Task DeleteAsync(int id);
     }

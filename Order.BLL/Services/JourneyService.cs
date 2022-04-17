@@ -47,11 +47,12 @@ namespace Order.BLL.Services
         }
 
 
-        public async Task AddAsync(JourneyRequest request)
+        public async Task<JourneyResponse> AddAsync(JourneyRequest request)
         {
             var journey = _mapper.Map<JourneyRequest, Journey>(request);
             await _unitOfWork.JourneyRepository.Create(journey);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<Journey, JourneyResponse>(journey);
         }
 
         public async Task UpdateAsync(JourneyRequest request)

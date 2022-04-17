@@ -33,12 +33,11 @@ namespace Order.WebAPI.Controllers
             }
         }
 
-        [Route("{Id}")]
-        [HttpGet]
+        [HttpGet("{Id}", Name = nameof(GetRegionById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<RegionResponse>> GetById(int Id)
+        public async Task<ActionResult<RegionResponse>> GetRegionById(int Id)
         {
             return Ok(await _regionService.GetByIdAsync(Id));
         }
@@ -61,8 +60,9 @@ namespace Order.WebAPI.Controllers
         {
             try
             {
-                await _regionService.AddAsync(region);
-                return Ok();
+                var regionResponse = await _regionService.AddAsync(region);
+                return CreatedAtRoute(nameof(GetRegionById), new { Id = regionResponse.Id }, regionResponse);
+                //return Ok();
             }
             catch (Exception e)
             {
@@ -93,7 +93,7 @@ namespace Order.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Delete([FromBody] int Id)
+        public async Task<ActionResult> Delete([FromRoute] int Id)
         {
             try
             {

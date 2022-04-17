@@ -14,7 +14,7 @@ namespace Order.BLL.Interfaces.Services
         Task<IEnumerable<CountryRegionsResponse>> GetDetailAsync();
         Task<CountryResponse> GetByIdAsync(int id);
         Task<CountryRegionsResponse> GetByIdDetailAsync(int id);
-        Task AddAsync(CountryRequest request);
+        Task<CountryResponse> AddAsync(CountryRequest request);
         Task UpdateAsync(CountryRequest request);
         Task DeleteAsync(int id);
     }

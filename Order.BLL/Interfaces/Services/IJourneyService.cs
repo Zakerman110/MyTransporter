@@ -14,7 +14,7 @@ namespace Order.BLL.Interfaces.Services
         Task<IEnumerable<JourneyResponse>> GetDetailAsync();
         Task<JourneyResponse> GetByIdAsync(int id);
         Task<JourneyResponse> GetByIdDetailAsync(int id);
-        Task AddAsync(JourneyRequest request);
+        Task<JourneyResponse> AddAsync(JourneyRequest request);
         Task UpdateAsync(JourneyRequest request);
         Task DeleteAsync(int id);
     }
