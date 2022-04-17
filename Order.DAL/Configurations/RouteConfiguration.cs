@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Order.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Order.DAL.Seeding;
 
 namespace Order.DAL.Configurations
 {
@@ -13,6 +9,10 @@ namespace Order.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Route> builder)
         {
+            builder.Property(r => r.Id)
+                   .UseIdentityColumn()
+                   .IsRequired();
+
             builder.HasOne(r => r.StartPoint)
                    .WithMany(c => c.StartPoints)
                    .HasForeignKey(r => r.StartPointId)
@@ -22,6 +22,8 @@ namespace Order.DAL.Configurations
                    .WithMany(c => c.EndPoints)
                    .HasForeignKey(r => r.EndPointId)
                    .OnDelete(DeleteBehavior.NoAction);
+
+            new RouteSeeder().Seed(builder);
         }
     }
 }

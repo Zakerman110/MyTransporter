@@ -14,9 +14,7 @@ namespace Order.BLL.DTO.Responses
         public OrderStatus OrderStatus { get; set; }
         public int CustomerId { get; set; }
         public int VehicleId { get; set; }
-        public int RouteId { get; set; }
         public RouteResponse Route { get; set; }
-        public int JourneyId { get; set; }
         public JourneyResponse Journey { get; set; }
     }
 }
