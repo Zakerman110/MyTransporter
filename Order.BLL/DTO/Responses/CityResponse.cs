@@ -10,6 +10,6 @@ namespace Order.BLL.DTO.Responses
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public RegionResponse Region { get; set; }
+        //public RegionResponse Region { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Order.BLL.Configurations
         {
             CreateMap<CountryRequest, Country>();
             CreateMap<Country, CountryResponse>();
+            CreateMap<Country, CountryRegionsResponse>();
             CreateMap<RegionRequest, Region>();
             CreateMap<Region, RegionResponse>();
             CreateMap<Region, RegionCitiesResponse>();

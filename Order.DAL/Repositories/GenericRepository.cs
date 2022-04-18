@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Order.DAL.Entities;
+using Order.DAL.Exceptions;
 using Order.DAL.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -27,12 +28,19 @@ namespace Order.DAL.Repositories
 
         public async Task<TEntity> FindById(int id)
         {
-            return await _dbSet.FindAsync(id) ?? throw new NotImplementedException();
+            return await _dbSet.FindAsync(id) ?? throw new NotFoundException($"{typeof(TEntity).Name} with id {id} not found.");
         }
 
         public async Task<IEnumerable<TEntity>> Get()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            var entities = await _dbSet.AsNoTracking().ToListAsync();
+
+            if(entities is null)
+            {
+                throw new NotFoundException($"{typeof(TEntity).Name} not found.");
+            }
+
+            return entities;
         }
 
         public async Task Remove(int id)
@@ -43,6 +51,8 @@ namespace Order.DAL.Repositories
 
         public async Task Update(TEntity item)
         {
+            var entity = await FindById(item.Id);
+            _context.Entry(entity).State = EntityState.Detached;
             await Task.Run(() => _dbSet.Update(item));
         }
     }

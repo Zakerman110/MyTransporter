@@ -2,6 +2,7 @@
 using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.BLL.Interfaces.Services;
+using Order.DAL.Exceptions;
 
 namespace Order.WebAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace Order.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<CountryResponse>>> Get()
         {
@@ -26,6 +28,10 @@ namespace Order.WebAPI.Controllers
                 var countries = await _countryService.GetAsync();
                 return Ok(countries);
             }
+            catch (NotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
             catch (Exception e)
             {
 
@@ -33,13 +39,68 @@ namespace Order.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = nameof(GetCountryById))]
+        [HttpGet("detail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<CountryRegionsResponse>>> GetDetail()
+        {
+            try
+            {
+                var countries = await _countryService.GetDetailAsync();
+                return Ok(countries);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpGet("{Id}", Name = nameof(GetCountryById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<CountryResponse>> GetCountryById(int Id)
         {
-            return Ok(await _countryService.GetByIdAsync(Id));
+            try
+            {
+                var country = await _countryService.GetByIdAsync(Id);
+                return Ok(country);
+            }
+            catch(NotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpGet("detail/{Id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<CountryRegionsResponse>> GetCountryByIdDetail(int Id)
+        {
+            try
+            {
+                var country = await _countryService.GetByIdDetailAsync(Id);
+                return Ok(country);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
         }
 
         [HttpPost]
@@ -59,10 +120,10 @@ namespace Order.WebAPI.Controllers
             }
         }
 
-        [Route("{id?}")]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Put([FromBody] CountryRequest country)
         {
@@ -71,13 +132,17 @@ namespace Order.WebAPI.Controllers
                 await _countryService.UpdateAsync(country);
                 return Ok();
             }
+            catch (NotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
             }
         }
 
-        [Route("{id?}")]
+        [Route("{Id?}")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -88,6 +153,10 @@ namespace Order.WebAPI.Controllers
             {
                 await _countryService.DeleteAsync(Id);
                 return Ok();
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(new { e.Message });
             }
             catch (Exception e)
             {

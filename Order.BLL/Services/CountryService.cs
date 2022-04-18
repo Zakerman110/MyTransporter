@@ -29,9 +29,10 @@ namespace Order.BLL.Services
             return countries.Select(_mapper.Map<Country, CountryResponse>);
         }
 
-        public Task<IEnumerable<CountryRegionsResponse>> GetDetailAsync()
+        public async Task<IEnumerable<CountryRegionsResponse>> GetDetailAsync()
         {
-            throw new NotImplementedException();
+            var countries = await _unitOfWork.CountryRepository.GetDetail();           
+            return countries.Select(_mapper.Map<Country, CountryRegionsResponse>);
         }
 
         public async Task<CountryResponse> GetByIdAsync(int id)
@@ -40,9 +41,10 @@ namespace Order.BLL.Services
             return _mapper.Map<Country, CountryResponse>(country);
         }
 
-        public Task<CountryRegionsResponse> GetByIdDetailAsync(int id)
+        public async Task<CountryRegionsResponse> GetByIdDetailAsync(int id)
         {
-            throw new NotImplementedException();
+            var country = await _unitOfWork.CountryRepository.GetDetailById(id);
+            return _mapper.Map<Country, CountryRegionsResponse>(country);
         }
 
 

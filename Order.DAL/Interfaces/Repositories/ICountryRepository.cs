@@ -9,5 +9,7 @@ namespace Order.DAL.Interfaces.Repositories
 {
     public interface ICountryRepository : IGenericRepository<Country>
     {
+        public Task<IEnumerable<Country>> GetDetail();
+        public Task<Country> GetDetailById(int id);
     }
 }
