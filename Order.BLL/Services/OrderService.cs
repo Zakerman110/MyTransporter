@@ -50,6 +50,15 @@ namespace Order.BLL.Services
         public async Task<OrderResponse> AddAsync(OrderRequest request)
         {
             var order = _mapper.Map<OrderRequest, DAL.Entities.Order>(request);
+
+            order.OrderDate = DateTime.Now;
+            order.OrderStatus = DAL.Enums.OrderStatus.PENDING;
+
+            var journey = _mapper.Map<JourneyRequest, Journey>(request.Journey);
+            await _unitOfWork.JourneyRepository.Create(journey);
+
+            order.JourneyId = journey.Id;
+
             await _unitOfWork.OrdersRepository.Create(order);
             await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<DAL.Entities.Order, OrderResponse>(order);

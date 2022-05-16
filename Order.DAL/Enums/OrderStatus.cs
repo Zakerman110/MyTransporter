@@ -8,8 +8,8 @@ namespace Order.DAL.Enums
 {
     public enum OrderStatus
     {
-        ORDERED,
         PENDING,
+        CONFIRMED,
         IN_PROGRESS,
         COMPLETED,
         CANCELED

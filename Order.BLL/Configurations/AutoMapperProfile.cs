@@ -26,9 +26,7 @@ namespace Order.BLL.Configurations
             CreateMap<Route, RouteResponse>();
             CreateMap<JourneyRequest, Journey>();
             CreateMap<Journey, JourneyResponse>();
-            CreateMap<OrderRequest, DAL.Entities.Order>()
-                    .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.PlaceDate))
-                    .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.Status));
+            CreateMap<OrderRequest, DAL.Entities.Order>();
             CreateMap<DAL.Entities.Order, OrderResponse>()
                     .ForMember(dest => dest.PlaceDate, opt => opt.MapFrom(src => src.OrderDate))
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.OrderStatus));
