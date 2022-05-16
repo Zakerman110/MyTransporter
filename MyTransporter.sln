@@ -19,19 +19,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.DAL", "Order.DAL\Orde
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Feedback", "Feedback", "{05EAA5B6-E6F3-491A-AF84-BFED6FA17375}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C57A2FCF-9FBF-4EBC-8B45-A3A19C310A79}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Feedback\Core", "{C57A2FCF-9FBF-4EBC-8B45-A3A19C310A79}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{FD271C6E-D3CB-45DF-9A78-D84AEB0CA15D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Feedback\Infrastructure", "{FD271C6E-D3CB-45DF-9A78-D84AEB0CA15D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{26581A55-FF1F-44AF-8143-8919C943EEE9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Feedback\Presentation", "{26581A55-FF1F-44AF-8143-8919C943EEE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{EE02B91D-76C8-4FC9-BA10-890717E2CB27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Feedback\Core\Domain\Domain.csproj", "{EE02B91D-76C8-4FC9-BA10-890717E2CB27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{5221609F-3E74-4300-B3CC-26D2552E38F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Feedback\Core\Application\Application.csproj", "{5221609F-3E74-4300-B3CC-26D2552E38F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{7CAA23A6-9CC1-4CC9-94CB-104B57305648}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Feedback\Infrastructure\Persistence\Persistence.csproj", "{7CAA23A6-9CC1-4CC9-94CB-104B57305648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{DB23C27B-B143-465E-B3C4-FE0A77E906AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feedback.WebAPI", "Feedback\Presentation\WebAPI\Feedback.WebAPI.csproj", "{DB23C27B-B143-465E-B3C4-FE0A77E906AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
