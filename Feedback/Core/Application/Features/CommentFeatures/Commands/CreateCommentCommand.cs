@@ -1,6 +1,7 @@
 ﻿using Feedback.Core.Application.Interfaces;
 using Feedback.Core.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Feedback.Core.Application.Features.CommentFeatures.Commands
 {
@@ -14,10 +15,12 @@ namespace Feedback.Core.Application.Features.CommentFeatures.Commands
         public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, string>
         {
             private readonly IApplicationDbContext _context;
+            private readonly IMemoryCache _memoryCache;
 
-            public CreateCommentCommandHandler(IApplicationDbContext context)
+            public CreateCommentCommandHandler(IApplicationDbContext context, IMemoryCache memoryCache)
             {
                 _context = context;
+                _memoryCache = memoryCache;
             }
             public async Task<string> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
             {
@@ -28,6 +31,13 @@ namespace Feedback.Core.Application.Features.CommentFeatures.Commands
                 comment.CustomerId = request.CustomerId;
                 comment.OrderId = request.OrderId;
                 await _context.Comments.InsertOneAsync(comment);
+                if (comment.Id != null)
+                {
+                    _memoryCache.Set(comment.Id, comment, new MemoryCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+                    });
+                }
                 return comment.Id;
             }
         }
