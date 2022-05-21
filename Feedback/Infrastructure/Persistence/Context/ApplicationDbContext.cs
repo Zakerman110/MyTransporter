@@ -14,5 +14,10 @@ namespace Feedback.Infrastructure.Persistence.Context
             var database = client.GetDatabase(settings.DatabaseName);
             Comments = database.GetCollection<Comment>(settings.CommentsCollectionName);
         }
+
+        public IEnumerable<Comment> FindWithSpecificationPattern(ISpecification<Comment> specification = null)
+        {
+            return SpecificationEvaluator<Comment>.GetQuery(Comments.Find(x => true).ToList().AsQueryable(), specification);
+        }
     }
 }
