@@ -9,6 +9,7 @@ namespace Feedback.Core.Application
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMemoryCache();
         }
     }
 }

@@ -40,6 +40,12 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "MyTransporterOrderInstance";
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen(c =>
