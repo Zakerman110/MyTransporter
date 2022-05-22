@@ -14,6 +14,7 @@ namespace Order.BLL.Interfaces.Services
         Task<IEnumerable<OrderResponse>> GetDetailAsync();
         Task<OrderResponse> GetByIdAsync(int id);
         Task<OrderResponse> GetByIdDetailAsync(int id);
+        Task<IEnumerable<OrderResponse>> GetByVehicleId(int id);
         Task<OrderResponse> AddAsync(OrderRequest request);
         Task UpdateAsync(OrderRequest request);
         Task DeleteAsync(int id);

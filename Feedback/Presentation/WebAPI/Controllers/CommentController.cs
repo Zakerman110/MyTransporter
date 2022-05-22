@@ -63,7 +63,7 @@ namespace Feedback.WebAPI.Controllers
             return Ok(await Mediator.Send(new DeleteCommentByIdCommand { Id = id }));
         }
 
-        [HttpPut("[action]")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
