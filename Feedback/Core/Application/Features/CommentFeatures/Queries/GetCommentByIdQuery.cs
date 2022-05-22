@@ -27,8 +27,12 @@ namespace Feedback.Core.Application.Features.CommentFeatures.Queries
                     comment = await _context.Comments.Find(c => c.Id == request.Id).FirstOrDefaultAsync();
                     if (comment != null)
                     {
-                        _memoryCache.Set(comment.Id, comment,
-                            new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+                        _memoryCache.Set(comment.Id, comment, new MemoryCacheEntryOptions
+                        {
+                            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+                            SlidingExpiration = TimeSpan.FromMinutes(2),
+                            Size = 1024,
+                        });
                     }
                 }
                 if (comment == null) return null;

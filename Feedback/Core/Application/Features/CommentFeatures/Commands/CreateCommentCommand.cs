@@ -35,7 +35,9 @@ namespace Feedback.Core.Application.Features.CommentFeatures.Commands
                 {
                     _memoryCache.Set(comment.Id, comment, new MemoryCacheEntryOptions
                     {
-                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+                        SlidingExpiration = TimeSpan.FromMinutes(2),
+                        Size = 1024,
                     });
                 }
                 return comment.Id;
