@@ -46,6 +46,11 @@ namespace Order.BLL.Services
             return _mapper.Map<DAL.Entities.Order, OrderResponse>(order);
         }
 
+        public async Task<IEnumerable<OrderResponse>> GetByVehicleId(int id)
+        {
+            var orders = await _unitOfWork.OrdersRepository.GetByVehicleId(id);
+            return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
+        }
 
         public async Task<OrderResponse> AddAsync(OrderRequest request)
         {

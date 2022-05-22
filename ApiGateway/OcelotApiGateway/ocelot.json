@@ -154,7 +154,8 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/vehicle/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "Key": "vehicle-info"
     },
     {
       "DownstreamPathTemplate": "/api/vehicle/detail/{id}",
@@ -574,6 +575,19 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/order/byVehicleId/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44378
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/order/byVehicleId/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "Key": "vehicle-orders"
+    },
+    {
       "DownstreamPathTemplate": "/api/v1/comment",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -638,6 +652,15 @@
         "PeriodTimespan": 10,
         "Limit": 3
       }
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "vehicle-info",
+        "vehicle-orders"
+      ],
+      "UpstreamPathTemplate": "/gateway/vehicle-orders/{id}"
     }
   ]
 }

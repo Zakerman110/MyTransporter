@@ -13,6 +13,7 @@ namespace Order.DAL.Repositories
         public OrderRepository(MyTransporterOrderContext context) : base(context)
         {
         }
+
         public async Task<Entities.Order> GetDetail(int id)
         {
             var order = await _dbSet.Include(order => order.Route)
@@ -20,6 +21,11 @@ namespace Order.DAL.Repositories
                                      .SingleOrDefaultAsync(order => order.Id == id);
 
             return order;
+        }
+
+        public async Task<IEnumerable<Entities.Order>> GetByVehicleId(int id)
+        {
+            return await _dbSet.Where(o => o.VehicleId == id).ToListAsync();             
         }
     }
 }
