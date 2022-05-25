@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using EventBus.Messages.Events;
+using MassTransit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +17,14 @@ namespace Transport.BLL.Services
     public class VehicleService : IVehicleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public VehicleService(IUnitOfWork unitOfWork)
+        public VehicleService(IUnitOfWork unitOfWork, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _unitOfWork = unitOfWork;
+            _publishEndpoint = publishEndpoint;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<VehicleResponse>> GetAsync()
@@ -30,6 +37,7 @@ namespace Transport.BLL.Services
                 vehicleResponse.Id = vehicle.Id;
                 vehicleResponse.Plate = vehicle.Plate;
                 vehicleResponse.Type = vehicle.Type;
+                vehicleResponse.Color = vehicle.Color;
                 vehicleResponse.IsAvailable = vehicle.IsAvailable;
 
                 vehiclesResponse.Add(vehicleResponse);
@@ -47,6 +55,7 @@ namespace Transport.BLL.Services
                 vehicleResponse.Id = vehicle.Id;
                 vehicleResponse.Plate = vehicle.Plate;
                 vehicleResponse.Type = vehicle.Type;
+                vehicleResponse.Color = vehicle.Color;
                 vehicleResponse.IsAvailable = vehicle.IsAvailable;
                 vehicleResponse.AutobaseId = vehicle.AutobaseId;
 
@@ -68,6 +77,7 @@ namespace Transport.BLL.Services
             vehicleResponse.Id = vehicle.Id;
             vehicleResponse.Plate = vehicle.Plate;
             vehicleResponse.Type = vehicle.Type;
+            vehicleResponse.Color = vehicle.Color;
             vehicleResponse.IsAvailable = vehicle.IsAvailable;
             return vehicleResponse;
         }
@@ -80,6 +90,7 @@ namespace Transport.BLL.Services
             vehicleResponse.Id = vehicle.Id;
             vehicleResponse.Plate = vehicle.Plate;
             vehicleResponse.Type = vehicle.Type;
+            vehicleResponse.Color = vehicle.Color;
             vehicleResponse.IsAvailable = vehicle.IsAvailable;
             vehicleResponse.AutobaseId = vehicle.AutobaseId;
 
@@ -97,10 +108,24 @@ namespace Transport.BLL.Services
             Vehicle vehicle = new Vehicle();
             vehicle.Plate = request.Plate;
             vehicle.Type = request.Type;
+            vehicle.Color = request.Color;
             vehicle.IsAvailable = request.IsAvailable;
             vehicle.AutobaseId = request.AutobaseId;
             vehicle.ModelId = request.ModelId;
-            await _unitOfWork.VehicleRepository.Add(vehicle);
+
+            int newId = await _unitOfWork.VehicleRepository.Add(vehicle);
+
+            var model = await _unitOfWork.ModelRepository.GetAsync(vehicle.ModelId);
+            var make = await _unitOfWork.MakeRepository.Get(model.MakeId);
+
+            model.Make = make;
+            vehicle.Model = model;
+
+            var eventMessage = _mapper.Map<VehicleAddEvent>(vehicle);
+
+            eventMessage.ExternalId = newId;
+
+            await _publishEndpoint.Publish(eventMessage);
         }
 
         public async Task UpdateAsync(VehicleRequest request)
@@ -109,10 +134,24 @@ namespace Transport.BLL.Services
             vehicle.Id = request.Id;
             vehicle.Plate = request.Plate;
             vehicle.Type = request.Type;
+            vehicle.Color = request.Color;
             vehicle.IsAvailable = request.IsAvailable;
             vehicle.AutobaseId = request.AutobaseId;
             vehicle.ModelId = request.ModelId;
+
             await _unitOfWork.VehicleRepository.Update(vehicle);
+
+            var model = await _unitOfWork.ModelRepository.GetAsync(vehicle.ModelId);
+            var make = await _unitOfWork.MakeRepository.Get(model.MakeId);
+
+            model.Make = make;
+            vehicle.Model = model;
+
+            var eventMessage = _mapper.Map<VehicleUpdateEvent>(vehicle);
+
+            eventMessage.ExternalId = vehicle.Id;
+
+            await _publishEndpoint.Publish(eventMessage);
         }
 
         public async Task DeleteAsync(int id)

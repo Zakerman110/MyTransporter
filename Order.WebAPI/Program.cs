@@ -1,5 +1,8 @@
+using EventBus.Messages.Common;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Order.BLL.EventBusConsumer;
 using Order.BLL.Interfaces.Services;
 using Order.BLL.Services;
 using Order.DAL;
@@ -18,6 +21,24 @@ builder.Services.AddDbContext<MyTransporterOrderContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+// MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(config => {
+    config.AddConsumer<VehicleUpdateConsumer>();
+    config.AddConsumer<VehicleAddConsumer>();
+    config.UsingRabbitMq((ctx, cfg) => {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+
+        cfg.ReceiveEndpoint(EventBusConstants.VehicleAddQueue, c =>
+        {
+            c.ConfigureConsumer<VehicleAddConsumer>(ctx);
+        });
+        cfg.ReceiveEndpoint(EventBusConstants.VehicleUpdateQueue, c =>
+        {
+            c.ConfigureConsumer<VehicleUpdateConsumer>(ctx);
+        });
+    });
+});
+
 #region SQL repositories
 builder.Services.AddTransient<ICountryRepository, CountryRepository>();
 builder.Services.AddTransient<IRegionRepository, RegionRepository>();
@@ -34,6 +55,7 @@ builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IRouteService, RouteService>();
 builder.Services.AddTransient<IJourneyService, JourneyService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IVehicleService, VehicleService>();
 #endregion
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -52,7 +74,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "MyTransporter.WebAPI",
+        Title = "Order.WebAPI",
         Version = "v1"
     });
 });
@@ -69,7 +91,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                                        "MyTransporter.WebAPI v1"));
+                                        "Order.WebAPI v1"));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

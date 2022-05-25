@@ -20,7 +20,7 @@ BEGIN
 
 	declare @V_sql as nvarchar(MAX) = null
 	if (@V_table is not null and @P_columnsString is not null and @P_propertiesString is not null)
-		SET @V_sql = 'INSERT INTO ' + @V_table + ' (' + @P_columnsString + ') VALUES (' + @P_propertiesString + ');'
+		SET @V_sql = 'INSERT INTO ' + @V_table + ' (' + @P_columnsString + ') VALUES (' + @P_propertiesString + ');SELECT SCOPE_IDENTITY()'
 	
 	if(@V_sql is not null)
 		SELECT @V_sql;

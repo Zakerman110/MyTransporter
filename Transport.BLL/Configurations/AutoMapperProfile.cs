@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventBus.Messages.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,16 @@ namespace Transport.BLL.Configurations
             CreateMap<Model, ModelMakeResponse>();
             CreateMap<Make, MakeResponse>();
             CreateMap<ModelRequest, Model>();
+            CreateMap<Vehicle, VehicleAddEvent>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Model, opt => opt.MapFrom(opt => opt.Model.Name))
+                .ForMember(dest => dest.Make, opt => opt.MapFrom(opt => opt.Model.Make.Name));
+            CreateMap<Vehicle, VehicleUpdateEvent>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Model, opt => opt.MapFrom(opt => opt.Model.Name))
+                .ForMember(dest => dest.Make, opt => opt.MapFrom(opt => opt.Model.Make.Name));
         }
     }
 }

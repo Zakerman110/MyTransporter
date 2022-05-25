@@ -1,4 +1,5 @@
-﻿using Order.DAL.Enums;
+﻿using Order.DAL.Entities;
+using Order.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Order.BLL.DTO.Responses
         public DateTime PlaceDate { get; set; }
         public OrderStatus Status { get; set; }
         public int CustomerId { get; set; }
-        public int VehicleId { get; set; }
+        public Vehicle Vehicle { get; set; }
         public RouteResponse Route { get; set; }
         public JourneyResponse Journey { get; set; }
     }

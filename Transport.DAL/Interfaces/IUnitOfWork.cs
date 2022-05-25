@@ -11,6 +11,7 @@ namespace Transport.DAL.Interfaces
     {
         IModelRepository ModelRepository { get; }
         IVehicleRepository VehicleRepository { get; }
+        IMakeRepository MakeRepository { get; }
 
         Task Complete();
     }

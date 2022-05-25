@@ -19,6 +19,7 @@ namespace Order.DAL
         public DbSet<Route> Routes { get; set; }
         public DbSet<Journey> Journeys { get; set; }
         public DbSet<Entities.Order> Orders { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,8 @@ namespace Order.DAL
             modelBuilder.ApplyConfiguration(new RouteConfiguration());
             modelBuilder.ApplyConfiguration(new JourneyConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new VehicleConfiguration());
+
         }
     }
 }
