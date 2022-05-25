@@ -12,11 +12,15 @@ namespace Transport.DAL.UnitOfWork
     {
         private readonly IModelRepository _modelRepository;
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly IMakeRepository _makeRepository;
 
-        public UnitOfWork(IModelRepository modelRepository, IVehicleRepository vehicleRepository)
+        public UnitOfWork(IModelRepository modelRepository, 
+                          IVehicleRepository vehicleRepository,
+                          IMakeRepository makeRepository)
         {
             _modelRepository = modelRepository;
             _vehicleRepository = vehicleRepository;
+            _makeRepository = makeRepository;
         }
 
         public Task Complete()
@@ -26,6 +30,7 @@ namespace Transport.DAL.UnitOfWork
 
         public IModelRepository ModelRepository => _modelRepository;
         public IVehicleRepository VehicleRepository => _vehicleRepository;
+        public IMakeRepository MakeRepository => _makeRepository;
 
     }
 }

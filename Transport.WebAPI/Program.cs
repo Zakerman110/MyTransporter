@@ -1,3 +1,5 @@
+using MassTransit;
+using Microsoft.OpenApi.Models;
 using Transport.BLL.Interfaces.Services;
 using Transport.BLL.Services;
 using Transport.DAL.Infrastructure;
@@ -9,14 +11,25 @@ using Transport.DAL.UnitOfWork;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
+});
+
 builder.Services.AddControllers();
 
 #region SQL repositories
+builder.Services.AddTransient<IMakeRepository, MakeRepository>();
 builder.Services.AddTransient<IModelRepository, ModelRepository>();
 builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
 #endregion
 
 #region SQL services
+//builder.Services.AddTransient<IMakeService, MakeService>();
 builder.Services.AddTransient<IModelService, ModelService>();
 builder.Services.AddTransient<IVehicleService, VehicleService>();
 #endregion
@@ -29,6 +42,15 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Transport.WebAPI",
+        Version = "v1"
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +60,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                                        "Transport.WebAPI v1"));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

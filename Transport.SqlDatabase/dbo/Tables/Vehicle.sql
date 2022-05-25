@@ -2,6 +2,7 @@
     [Id]          INT           IDENTITY (1, 1) NOT NULL,
     [Plate]       NVARCHAR (10) NULL,
     [Type]        NVARCHAR (50) NULL,
+    [Color]       NVARCHAR (50) NULL,
     [IsAvailable] BIT           NULL,
     [AutobaseId]  INT           NULL,
     [ModelId]     INT           NULL,

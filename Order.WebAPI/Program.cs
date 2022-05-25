@@ -1,5 +1,8 @@
+using EventBus.Messages.Common;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Order.BLL.EventBusConsumer;
 using Order.BLL.Interfaces.Services;
 using Order.BLL.Services;
 using Order.DAL;
@@ -16,6 +19,24 @@ builder.Services.AddDbContext<MyTransporterOrderContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString);
+});
+
+// MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(config => {
+    config.AddConsumer<VehicleUpdateConsumer>();
+    config.AddConsumer<VehicleAddConsumer>();
+    config.UsingRabbitMq((ctx, cfg) => {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+
+        cfg.ReceiveEndpoint(EventBusConstants.VehicleAddQueue, c =>
+        {
+            c.ConfigureConsumer<VehicleAddConsumer>(ctx);
+        });
+        cfg.ReceiveEndpoint(EventBusConstants.VehicleUpdateQueue, c =>
+        {
+            c.ConfigureConsumer<VehicleUpdateConsumer>(ctx);
+        });
+    });
 });
 
 #region SQL repositories
@@ -52,7 +73,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "MyTransporter.WebAPI",
+        Title = "Order.WebAPI",
         Version = "v1"
     });
 });
@@ -69,7 +90,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                                        "MyTransporter.WebAPI v1"));
+                                        "Order.WebAPI v1"));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
