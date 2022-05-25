@@ -55,6 +55,7 @@ builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddTransient<IRouteService, RouteService>();
 builder.Services.AddTransient<IJourneyService, JourneyService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IVehicleService, VehicleService>();
 #endregion
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();

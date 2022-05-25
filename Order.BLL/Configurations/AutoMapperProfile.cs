@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventBus.Messages.Events;
 using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.DAL.Entities;
@@ -30,6 +31,20 @@ namespace Order.BLL.Configurations
             CreateMap<DAL.Entities.Order, OrderResponse>()
                     .ForMember(dest => dest.PlaceDate, opt => opt.MapFrom(src => src.OrderDate))
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.OrderStatus));
+            CreateMap<VehicleAddEvent, Vehicle>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.ExternalId))
+                .ForMember(dest => dest.Plate, opt => opt.MapFrom(src => src.Plate))
+                .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
+                .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))
+                .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make));
+            CreateMap<VehicleUpdateEvent, Vehicle>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.ExternalId))
+                .ForMember(dest => dest.Plate, opt => opt.MapFrom(src => src.Plate))
+                .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
+                .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))
+                .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make));
         }
     }
 }

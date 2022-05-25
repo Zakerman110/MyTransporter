@@ -17,6 +17,9 @@ namespace Order.DAL.Repositories
         public async Task<Entities.Order> GetDetail(int id)
         {
             var order = await _dbSet.Include(order => order.Route)
+                                     .ThenInclude(route => route.StartPoint)
+                                     .Include(order => order.Route)
+                                     .ThenInclude(route => route.EndPoint)
                                      .Include(order => order.Journey)
                                      .SingleOrDefaultAsync(order => order.Id == id);
 

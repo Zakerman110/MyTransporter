@@ -113,7 +113,7 @@ namespace Transport.BLL.Services
             vehicle.AutobaseId = request.AutobaseId;
             vehicle.ModelId = request.ModelId;
 
-            //await _unitOfWork.VehicleRepository.Add(vehicle);
+            int newId = await _unitOfWork.VehicleRepository.Add(vehicle);
 
             var model = await _unitOfWork.ModelRepository.GetAsync(vehicle.ModelId);
             var make = await _unitOfWork.MakeRepository.Get(model.MakeId);
@@ -122,6 +122,8 @@ namespace Transport.BLL.Services
             vehicle.Model = model;
 
             var eventMessage = _mapper.Map<VehicleAddEvent>(vehicle);
+
+            eventMessage.ExternalId = newId;
 
             await _publishEndpoint.Publish(eventMessage);
         }
@@ -137,7 +139,7 @@ namespace Transport.BLL.Services
             vehicle.AutobaseId = request.AutobaseId;
             vehicle.ModelId = request.ModelId;
 
-            //await _unitOfWork.VehicleRepository.Update(vehicle);
+            await _unitOfWork.VehicleRepository.Update(vehicle);
 
             var model = await _unitOfWork.ModelRepository.GetAsync(vehicle.ModelId);
             var make = await _unitOfWork.MakeRepository.Get(model.MakeId);
@@ -146,6 +148,8 @@ namespace Transport.BLL.Services
             vehicle.Model = model;
 
             var eventMessage = _mapper.Map<VehicleUpdateEvent>(vehicle);
+
+            eventMessage.ExternalId = vehicle.Id;
 
             await _publishEndpoint.Publish(eventMessage);
         }

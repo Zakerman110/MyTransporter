@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Order.BLL.DTO.Requests;
+using Order.DAL.Exceptions;
 
 namespace Order.BLL.Services
 {
@@ -16,11 +17,13 @@ namespace Order.BLL.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IVehicleService _vehicleService;
 
-        public OrderService(IMapper mapper, IUnitOfWork unitOfWork)
+        public OrderService(IMapper mapper, IUnitOfWork unitOfWork, IVehicleService vehicleService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _vehicleService = vehicleService;
         }
 
         public async Task<IEnumerable<OrderResponse>> GetAsync()
@@ -43,7 +46,18 @@ namespace Order.BLL.Services
         public async Task<OrderResponse> GetByIdDetailAsync(int id)
         {
             var order = await _unitOfWork.OrdersRepository.GetDetail(id);
-            return _mapper.Map<DAL.Entities.Order, OrderResponse>(order);
+
+            var response = _mapper.Map<DAL.Entities.Order, OrderResponse>(order);
+            try
+            {
+                response.Vehicle = await _vehicleService.GetByIdAsync(order.VehicleId);
+            }
+            catch (NotFoundException ex)
+            {
+                response.Vehicle = null;
+            }
+
+            return response;
         }
 
         public async Task<IEnumerable<OrderResponse>> GetByVehicleId(int id)

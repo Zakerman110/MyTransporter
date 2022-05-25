@@ -61,7 +61,7 @@ namespace Transport.DAL.Repositories
                     param: new { P_tableName = _tableName, P_columnsString = stringOfColumns, P_propertiesString = stringOfProperties },
                     commandType: CommandType.StoredProcedure);
 
-                var InsertedEntityId = await db.ExecuteAsync(
+                var InsertedEntityId = await db.ExecuteScalarAsync<int>(
                     sql: InsertionStatement,
                     param: entity,
                     commandType: CommandType.Text);
