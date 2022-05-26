@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.BLL.Interfaces.Services;
@@ -7,6 +8,7 @@ namespace Order.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         IOrderService _orderService;

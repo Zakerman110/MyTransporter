@@ -23,6 +23,22 @@ builder.Services.AddDbContext<MyTransporterOrderContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", config =>
+    {
+        config.Authority = "https://localhost:7225/";
+
+        config.Audience = "OrderAPI";
+
+        config.RequireHttpsMetadata = false;
+    });
+
+builder.Services.AddCors(confg =>
+    confg.AddPolicy("AllowAll",
+        p => p.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
+
 // MassTransit-RabbitMQ Configuration
 builder.Services.AddMassTransit(config => {
     config.AddConsumer<VehicleUpdateConsumer>();
@@ -100,7 +116,11 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseCors("AllowAll");
+
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -109,6 +129,13 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-await PrebDb.PrepPopulationAsync(app);
+try
+{
+    await PrebDb.PrepPopulationAsync(app);
+}
+catch (Exception ex)
+{
+    
+}
 
 app.Run();
