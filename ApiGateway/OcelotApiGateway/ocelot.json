@@ -9,7 +9,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/model",
@@ -30,7 +30,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/model",
@@ -42,7 +42,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/model/detail",
@@ -63,7 +63,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/model/{id}",
@@ -75,7 +75,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/model/detail/{id}",
@@ -96,7 +96,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/vehicle",
@@ -117,7 +117,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/vehicle",
@@ -129,7 +129,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/vehicle/detail",
@@ -150,7 +150,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/vehicle/{id}",
@@ -163,7 +163,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44364
+          "Port": 7195
         }
       ],
       "UpstreamPathTemplate": "/gateway/vehicle/detail/{id}",
@@ -184,7 +184,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/country",
@@ -205,7 +205,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/country",
@@ -217,7 +217,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/country/detail",
@@ -238,7 +238,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/country/{id}",
@@ -250,7 +250,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/country/detail/{id}",
@@ -271,7 +271,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/region",
@@ -292,7 +292,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/region",
@@ -304,7 +304,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/region/{id}",
@@ -316,7 +316,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/region/detail/{id}",
@@ -337,7 +337,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/city",
@@ -358,7 +358,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/city",
@@ -370,7 +370,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/city/{id}",
@@ -382,7 +382,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/city/detail/{id}",
@@ -403,7 +403,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/route",
@@ -424,7 +424,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/route",
@@ -436,7 +436,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/route/{id}",
@@ -448,7 +448,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/route/detail/{id}",
@@ -469,7 +469,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/journey",
@@ -490,7 +490,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/journey",
@@ -502,7 +502,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/journey/{id}",
@@ -514,7 +514,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/order",
@@ -535,7 +535,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/order",
@@ -547,7 +547,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/order/{id}",
@@ -559,7 +559,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/order/detail/{id}",
@@ -580,7 +580,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44378
+          "Port": 7239
         }
       ],
       "UpstreamPathTemplate": "/gateway/order/byVehicleId/{id}",
@@ -593,7 +593,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44329
+          "Port": 7090
         }
       ],
       "UpstreamPathTemplate": "/gateway/comment",
@@ -614,7 +614,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44329
+          "Port": 7090
         }
       ],
       "UpstreamPathTemplate": "/gateway/comment",
@@ -626,7 +626,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44329
+          "Port": 7090
         }
       ],
       "UpstreamPathTemplate": "/gateway/comment/{id}",
@@ -638,7 +638,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44329
+          "Port": 7090
         }
       ],
       "UpstreamPathTemplate": "/gateway/comment/specify",
