@@ -1,0 +1,21 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Transport.Proto";
+
+service GrpcVehicle {
+    rpc GetAllVehicles (GetAllRequest) returns (VehicleResponse);
+}
+
+message GetAllRequest {}
+
+message GrpcVehicleModel{
+    int32 vehicleId = 1;
+    string plate = 2;
+    string color = 3;
+    string model = 4;
+    string make = 5;
+}
+
+message VehicleResponse {
+    repeated GrpcVehicleModel vehicle = 1;
+}

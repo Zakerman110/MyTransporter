@@ -2,6 +2,7 @@ using MassTransit;
 using Microsoft.OpenApi.Models;
 using Transport.BLL.Interfaces.Services;
 using Transport.BLL.Services;
+using Transport.BLL.Services.Grpc;
 using Transport.DAL.Infrastructure;
 using Transport.DAL.Interfaces;
 using Transport.DAL.Interfaces.IRepositories;
@@ -19,6 +20,8 @@ builder.Services.AddMassTransit(config =>
         cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
     });
 });
+
+builder.Services.AddGrpc();
 
 builder.Services.AddControllers();
 
@@ -74,7 +77,13 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapGrpcService<GrpcVehicleService>();
     endpoints.MapControllers();
+});
+
+app.MapGet("/protos/vehicle.proto", async context =>
+{
+    await context.Response.WriteAsync(File.ReadAllText("Protos/vehicle.proto"));
 });
 
 app.Run();

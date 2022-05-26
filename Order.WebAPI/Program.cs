@@ -2,9 +2,11 @@ using EventBus.Messages.Common;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Order.BLL.Configurations;
 using Order.BLL.EventBusConsumer;
 using Order.BLL.Interfaces.Services;
 using Order.BLL.Services;
+using Order.BLL.Services.Grpc;
 using Order.DAL;
 using Order.DAL.Interfaces;
 using Order.DAL.Interfaces.Repositories;
@@ -58,6 +60,8 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IVehicleService, VehicleService>();
 #endregion
 
+builder.Services.AddScoped<IVehicleDataClient, VehicleDataClient>();
+
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -104,5 +108,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
+await PrebDb.PrepPopulationAsync(app);
 
 app.Run();

@@ -3,6 +3,7 @@ using EventBus.Messages.Events;
 using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.DAL.Entities;
+using Order.Proto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,13 @@ namespace Order.BLL.Configurations
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))
                 .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make));
+            CreateMap<GrpcVehicleModel, Vehicle>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.VehicleId))
+                .ForMember(dest => dest.Plate, opt => opt.MapFrom(src => src.Plate))
+                .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
+                .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))
+                .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make));
+
         }
     }
 }
