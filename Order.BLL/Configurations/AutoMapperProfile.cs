@@ -47,7 +47,7 @@ namespace Order.BLL.Configurations
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))
                 .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make));
             CreateMap<GrpcVehicleModel, Vehicle>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.VehicleId))
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.VehicleId))
                 .ForMember(dest => dest.Plate, opt => opt.MapFrom(src => src.Plate))
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))

@@ -24,7 +24,10 @@ namespace Order.BLL.Services.Grpc
 
         public async Task<IEnumerable<Vehicle>> ReturnAllVehicles()
         {
-            var channel = GrpcChannel.ForAddress(_configuration["GrpcVehicle"]);
+            var httpHandler = new HttpClientHandler();
+            httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcVehicle"], new GrpcChannelOptions { HttpHandler = httpHandler });
             var client = new GrpcVehicle.GrpcVehicleClient(channel);
             var request = new GetAllRequest();
 

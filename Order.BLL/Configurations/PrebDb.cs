@@ -21,7 +21,7 @@ namespace Order.BLL.Configurations
 
                 var vehicles = await grpcClient.ReturnAllVehicles();
 
-                SeedDataAsync(serviceScope.ServiceProvider.GetService<IVehicleService>(), vehicles);
+                await SeedDataAsync(serviceScope.ServiceProvider.GetService<IVehicleService>(), vehicles);
             }
         }
 
