@@ -527,6 +527,10 @@
         "Period": "10s",
         "PeriodTimespan": 10,
         "Limit": 3
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
       }
     },
     {
@@ -539,7 +543,11 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/order",
-      "UpstreamHttpMethod": [ "POST", "PUT" ]
+      "UpstreamHttpMethod": [ "POST", "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/order/{id}",
@@ -551,7 +559,11 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/order/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/order/detail/{id}",
@@ -572,6 +584,10 @@
         "Period": "10s",
         "PeriodTimespan": 10,
         "Limit": 3
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
       }
     },
     {
@@ -585,7 +601,11 @@
       ],
       "UpstreamPathTemplate": "/gateway/order/byVehicleId/{id}",
       "UpstreamHttpMethod": [ "GET" ],
-      "Key": "vehicle-orders"
+      "Key": "vehicle-orders",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/v1/comment",
