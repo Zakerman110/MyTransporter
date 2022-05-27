@@ -1,13 +1,25 @@
 ﻿@model ExternalRegisterViewModel
 
-<form asp-controller="Auth" asp-action="ExternalRegister" method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div>
-        <label>Username</label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+<div class="row justify-content-md-center">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>External Account</h2>
+            </div>
+
+            <div class="card-body">
+                <form asp-controller="Auth" asp-action="ExternalRegister" method="post">
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div class="form-group">
+                        <label asp-for="Username">Username</label>
+                        <input asp-for="Username" />
+                        <span asp-validation-for="Username"></span>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <button type="submit">Sign Up</button>
-    </div>
-</form>
+</div>

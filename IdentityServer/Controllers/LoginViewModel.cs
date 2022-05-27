@@ -13,6 +13,6 @@ namespace IdentityServer.Controllers
         public string Password { get; set; }
         public string ReturnUrl { get; set; }
 
-        public IEnumerable<AuthenticationScheme> ExternalProviders { get; set; }
+        public IEnumerable<AuthenticationScheme>? ExternalProviders { get; set; }
     }
 }

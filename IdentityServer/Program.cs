@@ -38,8 +38,8 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddFacebook(config => {
-        config.AppId = "3396617443742614";
-        config.AppSecret = "secret";
+        config.AppId = "5404192632953940";
+        config.AppSecret = "73f348a522f13767a4571cc6fac124b0";
     });
 
 builder.Services.AddControllersWithViews();
