@@ -18,6 +18,12 @@ builder.Services.AddAuthentication()
         };
     });
 
+builder.Services.AddCors(confg =>
+    confg.AddPolicy("AllowAll",
+        p => p.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
+
 // Add services to the container.
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 builder.Services.AddOcelot(builder.Configuration)
@@ -41,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

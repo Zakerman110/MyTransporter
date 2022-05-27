@@ -1,6 +1,7 @@
 using EventBus.Messages.Common;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Order.BLL.Configurations;
 using Order.BLL.EventBusConsumer;
@@ -27,11 +28,19 @@ builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", config =>
     {
         config.Authority = "https://localhost:7225/";
+        config.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+        //config.Audience = "OrderAPI";
 
-        config.Audience = "OrderAPI";
-
-        config.RequireHttpsMetadata = false;
+        //config.RequireHttpsMetadata = false;
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "angular"));
+});
 
 builder.Services.AddCors(confg =>
     confg.AddPolicy("AllowAll",
