@@ -1,5 +1,55 @@
-<div>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color:white;" routerLinkActive="Active" routerLink="">My Transporter</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse nav nav-pills mr-auto " id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" (click)="getOrders()" href="#">Send request <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <a *ngIf="!isAuth" class="btn btn-outline-success" style="color:white;" (click)="onLogin()">Login</a>
+    <a *ngIf="isAuth" class="btn btn-secondary" style="color: white" (click)="onLogout()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Place Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Customer Id</th>
+      <th scope="col">Vehicle</th>
+      <th scope="col">Route</th>
+      <th scope="col">Journey</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <th scope="row">{{order.id}}</th>
+      <td>{{order.placeDate}}</td>
+      <td>{{order.status}}</td>
+      <td>{{order.customerId}}</td>
+      <td>{{order.vehicle}}</td>
+      <td>{{order.route}}</td>
+      <td>{{order.journey}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div>
   <button *ngIf="!isAuth" (click)="login()">Login</button>
   <button *ngIf="isAuth" (click)="logout()">Logout</button>
   <button (click)="callApi()">Call Api</button>
-</div>
+</div> -->
+
+<router-outlet></router-outlet>

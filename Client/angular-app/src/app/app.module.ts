@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor, AuthModule, LogLevel } from 'angular-auth-oidc-client';
+
+import { OrderService } from './core/services/order.service';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,18 @@ import { HttpClientModule } from '@angular/common/http';
         clientId: 'angular',
         scope: 'openid OrderAPI',
         responseType: 'code',
+        secureRoutes: ['https://localhost:7192/'],
         logLevel: LogLevel.Debug,
       },
     })
   ],
-  providers: [],
+  providers: [OrderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: AuthInterceptor
+     }
+ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

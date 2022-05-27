@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { order } from './core/models/order';
+import { OrderService } from './core/services/order.service';
+import {AuthService} from "./core/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,39 +11,31 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(public oidcSecurityService: OidcSecurityService, public http: HttpClient) {}
+  constructor(public oidcSecurityService: OidcSecurityService, 
+              public http: HttpClient, 
+              public orderService: OrderService,
+              private authService: AuthService) {}
 
   isAuth: boolean = false;
+  orders: order[] = [];
 
   ngOnInit() {
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken }) => {
-      console.log('is authenticated', isAuthenticated)
-      this.isAuth = isAuthenticated;
-    });
+    this.isAuth = this.authService.isAuthenticated();
+    console.log('is authenticated', this.isAuth);
   }
 
-  login() {
-    this.oidcSecurityService.authorize();
+  onLogin() {
+    this.authService.login();
   }
 
-  logout() {
-    this.oidcSecurityService.logoff();
+  onLogout() {       
+    this.authService.logout();
   }
 
-  callApi() {
-    const token = this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      console.log(token);
-      const httpOptions = {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + token,
-        }),
-      };
-      this.http.get("https://localhost:7192/gateway/order", httpOptions)
-      //this.http.get("https://localhost:7239/api/order", httpOptions)
-        .subscribe((data: any) => {
-          console.log("api result: ", data);
-        });
-    });
+  getOrders() {
+    this.orderService.getOrders().subscribe(
+      data => {this.orders = data}
+    );
 
   }
 }
