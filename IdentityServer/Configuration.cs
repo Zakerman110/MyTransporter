@@ -34,9 +34,17 @@ namespace IdentityServer
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
             {
-                new ApiResource("OrderAPI", "Order API"),
-                new ApiResource("TransportAPI", "Transport API"),
-                new ApiResource("FeedbackAPI", "Feedback API"),
+                //new ApiResource("OrderAPI", "Order API"),
+                //new ApiResource("TransportAPI", "Transport API"),
+                //new ApiResource("FeedbackAPI", "Feedback API"),
+            };
+
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new ApiScope[]
+            {
+                new ApiScope("OrderAPI", "Order API"),
+                new ApiScope("TransportAPI", "Transport API"),
+                new ApiScope("FeedbackAPI", "Feedback API")
             };
 
         public static IEnumerable<IdentityResource> IdentityResources =>

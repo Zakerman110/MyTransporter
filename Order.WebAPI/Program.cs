@@ -131,7 +131,7 @@ app.UseEndpoints(endpoints =>
 
 try
 {
-    await PrebDb.PrepPopulationAsync(app);
+    //await PrebDb.PrepPopulationAsync(app);
 }
 catch (Exception ex)
 {
