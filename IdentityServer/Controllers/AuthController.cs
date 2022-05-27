@@ -51,7 +51,12 @@ namespace IdentityServer.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
-            // check if the model is valid
+            if (!ModelState.IsValid)
+            {
+                var externalProviders = await _signInManager.GetExternalAuthenticationSchemesAsync();
+                vm.ExternalProviders = externalProviders;
+                return View(vm);
+            }
 
             var result = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, false, false);
 

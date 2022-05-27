@@ -54,6 +54,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 
+app.UseStaticFiles();
+
 app.UseIdentityServer();
 
 app.UseEndpoints(enpoints =>
