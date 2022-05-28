@@ -91,6 +91,7 @@ namespace IdentityServer.Controllers
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Customer");
                 await _signInManager.SignInAsync(user, false);
 
                 return Redirect(vm.ReturnUrl);
@@ -143,6 +144,7 @@ namespace IdentityServer.Controllers
 
             if (!result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Customer");
                 return View(vm);
             }
 

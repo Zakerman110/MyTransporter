@@ -1,5 +1,7 @@
 using IdentityServer;
 using IdentityServer.Data;
+using IdentityServer.Services;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddTransient<IProfileService, CustomProfileService>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -34,6 +38,7 @@ builder.Services.AddIdentityServer()
     .AddInMemoryApiScopes(Configuration.ApiScopes)
     .AddInMemoryIdentityResources(Configuration.IdentityResources)
     .AddInMemoryClients(Configuration.Clients)
+    .AddProfileService<CustomProfileService>()
     .AddDeveloperSigningCredential();
 
 builder.Services.AddAuthentication()
@@ -57,6 +62,8 @@ app.UseRouting();
 app.UseStaticFiles();
 
 app.UseIdentityServer();
+
+app.CreateRoles().Wait();
 
 app.UseEndpoints(enpoints =>
 {

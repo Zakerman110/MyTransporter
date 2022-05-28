@@ -23,7 +23,8 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         "OrderAPI",
                         "TransportAPI",
-                        "FeedbackAPI"
+                        "FeedbackAPI",
+                        "roles"
                     },
 
                     AllowAccessTokensViaBrowser = true,
@@ -52,6 +53,7 @@ namespace IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource("roles", new[] { "role" }),
                 new IdentityResources.Address(),
                 new IdentityResources.Email()
             };
