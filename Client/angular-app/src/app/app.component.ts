@@ -17,11 +17,20 @@ export class AppComponent {
               private authService: AuthService) {}
 
   isAuth: boolean = false;
+  isAdmin: boolean = false;
+  role: string = '';
   orders: order[] = [];
 
   ngOnInit() {
     this.isAuth = this.authService.isAuthenticated();
-    console.log('is authenticated', this.isAuth);
+    console.log('is authenticated ', this.isAuth);
+
+    this.role = this.authService.getRole();
+    console.log('role is ', this.role);
+
+    console.log('token is ', this.authService.getToken());
+
+    this.isAdmin = this.role === 'Admin';
   }
 
   onLogin() {
@@ -36,6 +45,11 @@ export class AppComponent {
     this.orderService.getOrders().subscribe(
       data => {this.orders = data}
     );
+  }
 
+  getPrivacy() {
+    this.orderService.getPrivacy().subscribe(
+      data => {console.log(data)}
+    );
   }
 }

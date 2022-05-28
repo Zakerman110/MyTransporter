@@ -70,8 +70,13 @@
           <li *ngIf="!isAuth" class="header__item">
             <a class="header__link" (click)="onLogin()">Увійти</a>
           </li>
+          <!-- TEST PRIVACY-->
           <li *ngIf="isAuth" class="header__item">
-            <a class="btn btn-secondary" (click)="onLogout()">Вийти</a>
+            <a class="header__link"  (click)="getPrivacy()">Privacy</a>
+          </li>
+           <!-- TEST PRIVACY-->
+          <li *ngIf="isAuth" class="header__item">
+            <a class="header__link"  (click)="onLogout()">Вийти</a>
           </li>
         </ul>
       </nav>

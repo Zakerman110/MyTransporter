@@ -11,6 +11,7 @@ export class AuthService {
 
   private token: string = ''
   private isAuth: boolean = false;
+  private role: string = '';
 
   constructor(public oidcSecurityService: OidcSecurityService,
               private http: HttpClient) { }
@@ -28,6 +29,11 @@ export class AuthService {
         this.token = token;
     })
     return this.token ? this.token : ''
+  }
+
+  public getRole(): string {
+    this.oidcSecurityService.userData$.subscribe(user => {this.role = user.userData.role});
+    return this.role;
   }
 
   public isAuthenticated(): boolean {

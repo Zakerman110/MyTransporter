@@ -18,6 +18,14 @@ namespace Order.WebAPI.Controllers
             _orderService = orderService;
         }
 
+        // TEST PURPOUSE!!!
+        [HttpGet("Privacy")]
+        public IActionResult Privacy()
+        {
+            var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+            return Ok(claims);
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

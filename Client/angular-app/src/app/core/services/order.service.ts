@@ -14,4 +14,8 @@ export class OrderService {
    getOrders(): Observable<order[]> {
         return this.http.get<order[]>(this.baseURL)
    }
+
+   getPrivacy(): Observable<order[]> {
+      return this.http.get<order[]>(this.baseURL + '/privacy')
+ }
 }

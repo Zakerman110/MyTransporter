@@ -21,14 +21,14 @@ namespace IdentityServer
 
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
                         "OrderAPI",
                         "TransportAPI",
                         "FeedbackAPI",
-                        "roles"
                     },
 
                     AllowAccessTokensViaBrowser = true,
-                    RequireConsent = false,
+                    RequireConsent = false
                 }
             };
 
