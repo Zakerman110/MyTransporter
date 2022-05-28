@@ -3,11 +3,102 @@
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 
-body {
-  background: #f5f5f5;
+html {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
-a {
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
+body {
+  background: #F5F4F2;
+  font-family: 'Montserrat';
+  font-size: normal;
+  font-size: 16;
+  line-height: 1.2;
+  font-weight: normal;
+  color: #222222;
+}
+
+.wrapper {
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 0 auto;
+}
+
+/* Header styles start */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 30px;
+}
+
+.header__list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.header__item {
+  margin-right: 50px;
+}
+
+.header__item:last-child {
+  margin-right: 0px;
+}
+
+.header__link {
+  position: relative;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: #222222;
+  text-decoration: none!important;
+  cursor: pointer;
+}
+
+.header__link:after{
+  content: "";
+  position: absolute;
+  background-color: #169B6D;
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -10px;
+  transition: 0.3s;
+}
+
+.header__link:hover{
+  color: #222225;
+}
+
+.header__link:hover:after{
+  width: 100%;
+}
+
+.header__link:hover, .header__link:focus, .header__link:active {
+  opacity: .80;
+}
+
+/* Header styles end */
+
+/* a {
   cursor: pointer;
 }
 
@@ -54,3 +145,5 @@ background-color: rgba(105,105,105, 0.7) ;
 .btn-secondary {
   margin-left: 10px;
 }
+ */
+

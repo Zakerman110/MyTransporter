@@ -1,5 +1,5 @@
 <!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" style="color:white;" routerLinkActive="Active" routerLink="">My Transporter</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,41 @@
       <td>{{order.journey}}</td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+<header class="header">
+  <div class="wrapper">
+
+    <div class="header__wrapper">
+      <div class="header__logo">
+        <a routerLinkActive="Active" routerLink="" class="header__logo-link">
+          <img src="../assets/images/Logo.svg" alt="MyTransporter">
+        </a>
+      </div>
+  
+      <nav class="header__nav">
+        <ul class="header__list">
+          <li class="header__item">
+            <a href="#" class="header__link">Головна</a>
+          </li>
+          <li class="header__item">
+            <a href="#" class="header__link">Про нас</a>
+          </li>
+          <li class="header__item">
+            <a href="#" class="header__link">Послуги</a>
+          </li>
+          <li *ngIf="!isAuth" class="header__item">
+            <a class="header__link" (click)="onLogin()">Увійти</a>
+          </li>
+          <li *ngIf="isAuth" class="header__item">
+            <a class="btn btn-secondary" (click)="onLogout()">Вийти</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</header>
 
 <!-- <div>
   <button *ngIf="!isAuth" (click)="login()">Login</button>
