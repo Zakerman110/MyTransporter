@@ -26,6 +26,11 @@ body {
   color: #222222;
 }
 
+.img {
+  max-width: 100%;
+  height: auto ;
+}
+
 .wrapper {
   padding-left: 50px;
   padding-right: 50px;
@@ -39,6 +44,9 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
 }
 
 .header__wrapper {
@@ -46,7 +54,8 @@ body {
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  padding-top: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .header__list {
@@ -84,6 +93,16 @@ body {
   transition: 0.3s;
 }
 
+/* .active:after {
+  content: "";
+  position: absolute;
+  background-color: #169B6D;
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -10px;
+} */
+
 .header__link:hover{
   color: #222225;
 }
@@ -96,7 +115,58 @@ body {
   opacity: .80;
 }
 
+.Active {
+  color:#169B6D;
+}
+
+.Active:hover {
+  color:#169B6D;
+}
+
 /* Header styles end */
+
+.intro {
+  min-height: 100vh;
+  padding-top: 170px;
+  padding-left: 170px;
+  padding-right: 170px;
+}
+
+/* words in text start */
+
+span.bold {
+  font-weight: 700;
+}
+
+span.green {
+  font-weight: 700;
+  color: #169B6D;
+}
+
+/* words in text end */
+
+/* buttons start */
+
+.button__green {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 20px;
+  background: #169B6D;
+  color: #fff;
+  border-radius: 40px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: none!important;
+}
+
+.button__green:hover {
+  opacity: .85;
+  color:#fff; 
+  cursor: pointer;
+  text-decoration: none!important;
+}
+
+/* buttons end */
 
 /* a {
   cursor: pointer;

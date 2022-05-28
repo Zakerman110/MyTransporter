@@ -51,7 +51,7 @@
 
     <div class="header__wrapper">
       <div class="header__logo">
-        <a routerLinkActive="Active" routerLink="" class="header__logo-link">
+        <a routerLinkActive="Actives"  routerLink="" class="header__logo-link">
           <img src="../assets/images/Logo.svg" alt="MyTransporter">
         </a>
       </div>
@@ -59,7 +59,7 @@
       <nav class="header__nav">
         <ul class="header__list">
           <li class="header__item">
-            <a routerLinkActive="Active" routerLink="" class="header__link">Головна</a>
+            <a routerLinkActive="Active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/" class="header__link">Головна</a>
           </li>
           <li class="header__item">
             <a routerLinkActive="Active" routerLink="about" class="header__link">Про нас</a>
@@ -86,4 +86,8 @@
   <button (click)="callApi()">Call Api</button>
 </div> -->
 
-<router-outlet></router-outlet>
+<main class="main">
+  <section class="intro">
+    <router-outlet></router-outlet>
+  </section>
+</main>
