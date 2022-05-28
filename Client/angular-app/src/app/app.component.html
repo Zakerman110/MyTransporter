@@ -59,13 +59,13 @@
       <nav class="header__nav">
         <ul class="header__list">
           <li class="header__item">
-            <a href="#" class="header__link">Головна</a>
+            <a routerLinkActive="Active" routerLink="" class="header__link">Головна</a>
           </li>
           <li class="header__item">
-            <a href="#" class="header__link">Про нас</a>
+            <a routerLinkActive="Active" routerLink="about" class="header__link">Про нас</a>
           </li>
           <li class="header__item">
-            <a href="#" class="header__link">Послуги</a>
+            <a routerLinkActive="Active" routerLink="services" class="header__link">Послуги</a>
           </li>
           <li *ngIf="!isAuth" class="header__item">
             <a class="header__link" (click)="onLogin()">Увійти</a>

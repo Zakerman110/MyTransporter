@@ -8,10 +8,16 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor, AuthModule, LogLevel } from 'angular-auth-oidc-client';
 
 import { OrderService } from './core/services/order.service';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { ServicesComponent } from './components/services/services.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
