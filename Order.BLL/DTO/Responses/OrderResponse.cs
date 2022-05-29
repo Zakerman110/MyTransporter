@@ -11,7 +11,7 @@ namespace Order.BLL.DTO.Responses
     public class OrderResponse
     {
         public int Id { get; set; }
-        public DateTime PlaceDate { get; set; }
+        public string PlaceDate { get; set; }
         public OrderStatus Status { get; set; }
         public string UserId { get; set; }
         public Vehicle Vehicle { get; set; }

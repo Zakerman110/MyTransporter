@@ -1,3 +1,7 @@
+.container {
+  margin-bottom: 50px;
+}
+
 .order__buttons__list {    
   display: flex;
   flex-wrap: wrap;
@@ -11,3 +15,11 @@
 table{
   width: 100%;
  }
+
+ .custom-spinner {
+   margin: 0 auto;
+ }
+
+ :host ::ng-deep .custom-spinner circle{   
+  stroke: #169B6D;;
+}

@@ -30,7 +30,7 @@ namespace Order.BLL.Configurations
             CreateMap<Journey, JourneyResponse>();
             CreateMap<OrderRequest, DAL.Entities.Order>();
             CreateMap<DAL.Entities.Order, OrderResponse>()
-                    .ForMember(dest => dest.PlaceDate, opt => opt.MapFrom(src => src.OrderDate))
+                    .ForMember(dest => dest.PlaceDate, opt => opt.MapFrom(src => ((DateTime)src.OrderDate).ToString("dd.MM.yyyy HH:mm")))
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.OrderStatus));
             CreateMap<VehicleAddEvent, Vehicle>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
