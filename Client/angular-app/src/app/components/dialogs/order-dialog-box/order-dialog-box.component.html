@@ -1,19 +1,19 @@
-<h1 mat-dialog-title><strong>{{action}} Employee</strong></h1>
+<h1 mat-dialog-title><strong>{{action}} Order</strong></h1>
 <div mat-dialog-content>
   <mat-form-field >
-    <input placeholder="Name" matInput [(ngModel)]="local_data.name">    
+    <input placeholder="VehicleId" matInput [(ngModel)]="local_data.vehicleId">    
   </mat-form-field>
   <mat-form-field >
-    <input placeholder="Age" matInput [(ngModel)]="local_data.age">  
+    <input placeholder="StartPointId" matInput [(ngModel)]="local_data.startPointId">  
   </mat-form-field>
   <mat-form-field >
-    <input placeholder="Designation" matInput [(ngModel)]="local_data.designation">
+    <input placeholder="EndPointId" matInput [(ngModel)]="local_data.endPointId">
   </mat-form-field>
   <mat-form-field >
-    <input placeholder="Mobile Number" matInput [(ngModel)]="local_data.mobileNumber">
+    <input placeholder="StartDate" matInput [(ngModel)]="local_data.startDate">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="doAction()">{{action}}</button>
+  <button mat-button (click)="doAction()" color="primary">{{action}}</button>
   <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
 </div>

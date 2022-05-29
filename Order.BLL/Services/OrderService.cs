@@ -68,14 +68,28 @@ namespace Order.BLL.Services
 
         public async Task<OrderResponse> AddAsync(OrderRequest request)
         {
+            // Creating Route
+            var route = _unitOfWork.RouteRepository.Get().Result.Where(route => 
+                route.EndPointId == request.EndPointId && route.StartPointId == request.StartPointId).FirstOrDefault();
+
+            if(route == null)
+            {
+                route = new Route() { StartPointId = request.StartPointId, EndPointId = request.EndPointId };
+                _unitOfWork.RouteRepository.Create(route);
+                await _unitOfWork.SaveChangesAsync();
+            }
+
+            // Creatin Journey
+            var journey = new Journey() { StartDate = request.StartDate };
+            _unitOfWork.JourneyRepository.Create(journey);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Creating order
             var order = _mapper.Map<OrderRequest, DAL.Entities.Order>(request);
 
             order.OrderDate = DateTime.Now;
             order.OrderStatus = DAL.Enums.OrderStatus.PENDING;
-
-            var journey = _mapper.Map<JourneyRequest, Journey>(request.Journey);
-            await _unitOfWork.JourneyRepository.Create(journey);
-
+            order.RouteId = route.Id;
             order.JourneyId = journey.Id;
 
             await _unitOfWork.OrdersRepository.Create(order);

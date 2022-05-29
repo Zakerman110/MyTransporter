@@ -11,7 +11,8 @@ namespace Order.BLL.DTO.Requests
     {
         public string UserId { get; set; }
         public int VehicleId { get; set; }
-        public int RouteId { get; set; }
-        public JourneyRequest Journey { get; set; }
+        public int StartPointId { get; set; }
+        public int EndPointId { get; set; }
+        public DateTime StartDate { get; set; }
     }
 }

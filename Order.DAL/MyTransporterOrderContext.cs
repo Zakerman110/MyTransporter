@@ -9,8 +9,8 @@ namespace Order.DAL
         public MyTransporterOrderContext(DbContextOptions<MyTransporterOrderContext> options)
             : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
         public DbSet<Country> Countries { get; set; }

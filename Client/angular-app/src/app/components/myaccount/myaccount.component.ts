@@ -82,18 +82,17 @@ export class MyaccountComponent implements OnInit {
       mobileNumber:newRow.mobileNumber
     });*/
 
-    /*this.newOrder = {       
-       userId:this.userData.sub,
-       age: parseInt(newRow.age),
-       designation:newRow.designation,
-       mobileNumber:parseInt(newRow.mobileNumber)
+    this.newOrder = {       
+       userId: this.userData.sub,
+       vehicleId: parseInt(newRow.vehicleId),
+       startPointId: parseInt(newRow.startPointId),
+       endPointId: parseInt(newRow.endPointId),
+       startDate: newRow.startDate
     };
-    const headers = { 'content-type': 'application/json'}  
-    const body=JSON.stringify(this.newOrder);
-    this.http.post<Employee>(this.baseUrl + 'api/Employees', body , {'headers':headers}).subscribe(data => {        
-    })
+    
+    this.orderService.addOrder(this.newOrder).subscribe();
 
-    this.table.renderRows();*/
+    //this.table.renderRows();
     
   }
 
