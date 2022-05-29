@@ -1,0 +1,19 @@
+<h1 mat-dialog-title><strong>{{action}} Employee</strong></h1>
+<div mat-dialog-content>
+  <mat-form-field >
+    <input placeholder="Name" matInput [(ngModel)]="local_data.name">    
+  </mat-form-field>
+  <mat-form-field >
+    <input placeholder="Age" matInput [(ngModel)]="local_data.age">  
+  </mat-form-field>
+  <mat-form-field >
+    <input placeholder="Designation" matInput [(ngModel)]="local_data.designation">
+  </mat-form-field>
+  <mat-form-field >
+    <input placeholder="Mobile Number" matInput [(ngModel)]="local_data.mobileNumber">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 
@@ -24,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/order-dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +33,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     AboutComponent,
     ServicesComponent,
-    MyaccountComponent
+    MyaccountComponent,
+    OrderDialogBoxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     SwiperModule,
+    FormsModule,
     AuthModule.forRoot({
       config: {
         authority: 'https://localhost:7225',

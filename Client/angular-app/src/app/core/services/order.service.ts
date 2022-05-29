@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
  
 import { order } from '../models/order';
+import { OrderDto } from '../interfaces/order.interface';
  
 @Injectable()
 export class OrderService { 
@@ -11,15 +12,15 @@ export class OrderService {
    constructor(private http:HttpClient){
    }
  
-   getOrders(): Observable<order[]> {
+   getOrders(): Observable<OrderDto[]> {
         return this.http.get<order[]>(this.baseURL)
    }
 
-   getOrdersByUserId(id: string): Observable<order[]> {
-     return this.http.get<order[]>(this.baseURL + "/byUserId" + "/" + id)
+   getOrdersByUserId(id: string): Observable<OrderDto[]> {
+     return this.http.get<OrderDto[]>(this.baseURL + "/byUserId" + "/" + id)
    }
 
-   getPrivacy(): Observable<order[]> {
-      return this.http.get<order[]>(this.baseURL + '/privacy')
+   getPrivacy(): Observable<OrderDto[]> {
+      return this.http.get<OrderDto[]>(this.baseURL + '/privacy')
    }
 }

@@ -2,9 +2,11 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { NewOrder, OrderDto } from 'src/app/core/interfaces/order.interface';
 import { order } from 'src/app/core/models/order';
 import { orderStatus } from 'src/app/core/models/orderStatus';
 import { OrderService } from 'src/app/core/services/order.service';
+import { OrderDialogBoxComponent } from '../dialogs/order-dialog-box/order-dialog-box.component';
 
 
 @Component({
@@ -16,8 +18,10 @@ export class MyaccountComponent implements OnInit {
 
   userData: any;
   displayedColumns: string[] = ['placeDate', 'status', 'routeStart', 'routeEnd'];
-  dataSource: order[] = [];
-  displayDataSource: order[] = [];
+  dataSource: OrderDto[] = [];
+  displayDataSource: OrderDto[] = [];
+  // @ts-ignore
+  public newOrder: NewOrder;
   // @ts-ignore
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
   statusEnum: typeof orderStatus = orderStatus;
@@ -52,9 +56,9 @@ export class MyaccountComponent implements OnInit {
     })
   }
 
-  /*openDialog(action: string, obj: any) {
+  openDialog(action: string, obj: any) {
     obj.action = action;
-    const dialogRef = this.dialog.open(DialogBoxComponent, {
+    const dialogRef = this.dialog.open(OrderDialogBoxComponent, {
       width: '300px',
       data:obj
     });
@@ -62,12 +66,35 @@ export class MyaccountComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result.event == 'Add'){
         this.addRowData(result.data);
-      }else if(result.event == 'Update'){
+      }/*else if(result.event == 'Update'){
         this.updateRowData(result.data);
       }else if(result.event == 'Delete'){
         this.deleteRowData(result.data);
-      }
+      }*/
     });
-  }*/
+  }
+
+  addRowData(newRow: any){  
+    /*this.dataSource.push({      
+      name:newRow.name,
+      age:newRow.age,
+      designation:newRow.designation,
+      mobileNumber:newRow.mobileNumber
+    });*/
+
+    /*this.newOrder = {       
+       userId:this.userData.sub,
+       age: parseInt(newRow.age),
+       designation:newRow.designation,
+       mobileNumber:parseInt(newRow.mobileNumber)
+    };
+    const headers = { 'content-type': 'application/json'}  
+    const body=JSON.stringify(this.newOrder);
+    this.http.post<Employee>(this.baseUrl + 'api/Employees', body , {'headers':headers}).subscribe(data => {        
+    })
+
+    this.table.renderRows();*/
+    
+  }
 
 }
