@@ -15,13 +15,21 @@ import { ServicesComponent } from './components/services/services.component';
 import { SwiperModule } from "swiper/angular";
 import { CommentService } from './core/services/comment.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyaccountComponent } from './components/myaccount/myaccount.component';
+
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    ServicesComponent
+    ServicesComponent,
+    MyaccountComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +48,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         logLevel: LogLevel.Debug
       },
     }),
+    MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatInputModule,
     NgbModule
   ],
   providers: [OrderService,

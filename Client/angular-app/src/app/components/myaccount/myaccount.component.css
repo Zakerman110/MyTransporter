@@ -1,0 +1,9 @@
+.order__buttons__list {    
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.order__buttons__item {
+    margin-right: 50px;
+}
