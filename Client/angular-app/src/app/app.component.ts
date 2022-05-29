@@ -25,12 +25,15 @@ export class AppComponent {
     this.isAuth = this.authService.isAuthenticated();
     console.log('is authenticated ', this.isAuth);
 
-    this.role = this.authService.getRole();
-    console.log('role is ', this.role);
-
-    console.log('token is ', this.authService.getToken());
-
-    this.isAdmin = this.role === 'Admin';
+    if(this.isAuth)
+    {
+      this.role = this.authService.getRole();
+      console.log('role is ', this.role);
+  
+      console.log('token is ', this.authService.getToken());
+  
+      this.isAdmin = this.role === 'Admin';
+    }
   }
 
   onLogin() {

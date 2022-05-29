@@ -7,3 +7,20 @@
     </p>
     <a class="button__green" routerLinkActive="Active" routerLink="services">Детальніше</a>
 </div>
+<div>
+  <swiper
+        [slidesPerView]="3"
+        [spaceBetween]="50"
+        (swiper)="onSwiper($event)"
+        (slideChange)="onSlideChange()"
+        [navigation]="true"
+        [pagination]="{ clickable: true }"
+        [scrollbar]="{ draggable: true }"
+      >
+        <ng-template *ngFor="let comment of comments" swiperSlide>
+          <h3 class="comment__card-name">
+            {{comment.name}}
+          </h3>
+        </ng-template>
+    </swiper>
+</div>

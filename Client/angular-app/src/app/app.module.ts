@@ -12,6 +12,9 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ServicesComponent } from './components/services/services.component';
 
+import { SwiperModule } from "swiper/angular";
+import { CommentService } from './core/services/comment.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +26,7 @@ import { ServicesComponent } from './components/services/services.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    SwiperModule,
     AuthModule.forRoot({
       config: {
         authority: 'https://localhost:7225',
@@ -37,6 +41,7 @@ import { ServicesComponent } from './components/services/services.component';
     })
   ],
   providers: [OrderService,
+    CommentService,
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,
