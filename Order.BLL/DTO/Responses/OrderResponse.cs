@@ -13,7 +13,7 @@ namespace Order.BLL.DTO.Responses
         public int Id { get; set; }
         public DateTime PlaceDate { get; set; }
         public OrderStatus Status { get; set; }
-        public int CustomerId { get; set; }
+        public string UserId { get; set; }
         public Vehicle Vehicle { get; set; }
         public RouteResponse Route { get; set; }
         public JourneyResponse Journey { get; set; }
