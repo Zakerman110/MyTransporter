@@ -21,6 +21,10 @@
           <h3 class="comment__card-name">
             {{comment.name}}
           </h3>
+          <ngb-rating [max]="5" [(rate)]="comment.rate" [readonly]="true"></ngb-rating>
+          <p class="comment__card-description">
+            {{comment.description}}
+          </p>
         </ng-template>
     </swiper>
 </div>

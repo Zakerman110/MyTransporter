@@ -3,7 +3,6 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { order } from './core/models/order';
 import { OrderService } from './core/services/order.service';
-import {AuthService} from "./core/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -13,35 +12,32 @@ import {AuthService} from "./core/services/auth.service";
 export class AppComponent {
   constructor(public oidcSecurityService: OidcSecurityService, 
               public http: HttpClient, 
-              public orderService: OrderService,
-              private authService: AuthService) {}
+              public orderService: OrderService) {}
 
   isAuth: boolean = false;
   isAdmin: boolean = false;
   role: string = '';
+  username: string = '';
   orders: order[] = [];
 
   ngOnInit() {
-    this.isAuth = this.authService.isAuthenticated();
-    console.log('is authenticated ', this.isAuth);
-
-    if(this.isAuth)
-    {
-      this.role = this.authService.getRole();
-      console.log('role is ', this.role);
-  
-      console.log('token is ', this.authService.getToken());
-  
+    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken }) => {
+      this.isAuth = isAuthenticated;
+      console.log('is authenticated', this.isAuth);
+      console.log("userdata is", userData);
+      this.role = userData.role;
+      this.username = userData.username;
+      console.log('you role is', this.role);
       this.isAdmin = this.role === 'Admin';
-    }
+    });
   }
 
   onLogin() {
-    this.authService.login();
+    this.oidcSecurityService.authorize();
   }
 
   onLogout() {       
-    this.authService.logout();
+    this.oidcSecurityService.logoff();
   }
 
   getOrders() {

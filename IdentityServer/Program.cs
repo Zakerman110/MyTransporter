@@ -13,7 +13,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddTransient<IProfileService, CustomProfileService>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {

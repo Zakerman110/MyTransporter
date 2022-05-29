@@ -14,6 +14,7 @@ import { ServicesComponent } from './components/services/services.component';
 
 import { SwiperModule } from "swiper/angular";
 import { CommentService } from './core/services/comment.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { CommentService } from './core/services/comment.service';
         scope: 'openid OrderAPI',
         responseType: 'code',
         secureRoutes: ['https://localhost:7192/'],
-        logLevel: LogLevel.Debug,
+        logLevel: LogLevel.Debug
       },
-    })
+    }),
+    NgbModule
   ],
   providers: [OrderService,
     CommentService,

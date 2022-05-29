@@ -67,16 +67,16 @@
           <li class="header__item">
             <a routerLinkActive="Active" routerLink="services" class="header__link">Послуги</a>
           </li>
+          <!-- TEST PRIVACY-->
+          <li *ngIf="isAuth" class="header__item">
+            <a routerLinkActive="Active" routerLink="myaccount"  class="header__link" >Особистий кабінет</a>
+          </li>
+           <!-- TEST PRIVACY-->
           <li *ngIf="!isAuth" class="header__item">
             <a class="header__link" (click)="onLogin()">Увійти</a>
           </li>
-          <!-- TEST PRIVACY-->
           <li *ngIf="isAuth" class="header__item">
-            <a class="header__link"  (click)="getPrivacy()">Privacy</a>
-          </li>
-           <!-- TEST PRIVACY-->
-          <li *ngIf="isAuth" class="header__item">
-            <a class="header__link"  (click)="onLogout()">Вийти</a>
+            <a class="header__link"  (click)="onLogout()">Вийти - {{username}}</a>
           </li>
         </ul>
       </nav>

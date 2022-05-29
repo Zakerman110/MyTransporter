@@ -54,6 +54,7 @@ namespace IdentityServer
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResource("roles", new[] { "role" }),
+                new IdentityResource("username", new[] { "username" }),
                 new IdentityResources.Address(),
                 new IdentityResources.Email()
             };
