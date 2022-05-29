@@ -15,7 +15,11 @@ export class OrderService {
         return this.http.get<order[]>(this.baseURL)
    }
 
+   getOrdersByUserId(id: string): Observable<order[]> {
+     return this.http.get<order[]>(this.baseURL + "/byUserId" + "/" + id)
+   }
+
    getPrivacy(): Observable<order[]> {
       return this.http.get<order[]>(this.baseURL + '/privacy')
- }
+   }
 }

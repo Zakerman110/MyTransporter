@@ -30,5 +30,18 @@ namespace Order.DAL.Repositories
         {
             return await _dbSet.Where(o => o.VehicleId == id).ToListAsync();             
         }
+
+        public async Task<IEnumerable<Entities.Order>> GetCompleteByUserId(string id)
+        {
+            var order = await _dbSet.Include(order => order.Route)
+                                     .ThenInclude(route => route.StartPoint)
+                                     .Include(order => order.Route)
+                                     .ThenInclude(route => route.EndPoint)
+                                     .Include(order => order.Journey)
+                                     .Where(order => order.UserId == id)
+                                     .ToListAsync();
+
+            return order;
+        }
     }
 }

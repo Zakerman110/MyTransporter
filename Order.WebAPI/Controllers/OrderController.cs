@@ -72,6 +72,16 @@ namespace Order.WebAPI.Controllers
             return Ok(await _orderService.GetByVehicleId(Id));
         }
 
+        [Route("byUserId/{Id}")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<OrderResponse>>> GetCompleteByUserId(string Id)
+        {
+            return Ok(await _orderService.GetCompleteByUserId(Id));
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

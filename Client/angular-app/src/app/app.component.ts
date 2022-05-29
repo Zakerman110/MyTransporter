@@ -19,6 +19,8 @@ export class AppComponent {
   role: string = '';
   username: string = '';
   orders: order[] = [];
+  // @ts-ignore
+  userData$: Observable<any>;
 
   ngOnInit() {
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken }) => {

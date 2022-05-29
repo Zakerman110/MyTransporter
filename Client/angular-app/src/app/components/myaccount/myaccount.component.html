@@ -13,25 +13,31 @@
 </div>
 <div class="container">
     <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <ng-container matColumnDef="placeDate">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.placeDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+            <ng-container *ngSwitchCase="this.statusEnum.PENDING">PENDING</ng-container>
+            <ng-container *ngSwitchCase="this.statusEnum.CONFIRMED">CONFIRMED</ng-container>
+            <ng-container *ngSwitchCase="this.statusEnum.IN_PROGRESS">IN_PROGRESS</ng-container>
+            <ng-container *ngSwitchCase="this.statusEnum.COMPLETED">COMPLETED</ng-container>
+            <ng-container *ngSwitchCase="this.statusEnum.CANCELED">CANCELED</ng-container>
+          </td>
         </ng-container>
     
-        <ng-container matColumnDef="age">
-          <th mat-header-cell *matHeaderCellDef> Age </th>
-          <td mat-cell *matCellDef="let element"> {{element.age}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="designation">
-          <th mat-header-cell *matHeaderCellDef> Designation </th>
-          <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+        <ng-container matColumnDef="routeStart">
+          <th mat-header-cell *matHeaderCellDef> Start point </th>
+          <td mat-cell *matCellDef="let element"> {{element.route.startPoint.name}} </td>
         </ng-container>
     
     
-        <ng-container matColumnDef="mobileNumber">
-          <th mat-header-cell *matHeaderCellDef> MobileNumber </th>
-          <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
+        <ng-container matColumnDef="routeEnd">
+          <th mat-header-cell *matHeaderCellDef> End point </th>
+          <td mat-cell *matCellDef="let element"> {{element.route.endPoint.name}} </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

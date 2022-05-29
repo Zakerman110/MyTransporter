@@ -95,5 +95,11 @@ namespace Order.BLL.Services
             await _unitOfWork.OrdersRepository.Remove(id);
             await _unitOfWork.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<OrderResponse>> GetCompleteByUserId(string id)
+        {
+            var orders = await _unitOfWork.OrdersRepository.GetCompleteByUserId(id);
+            return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
+        }
     }
 }
