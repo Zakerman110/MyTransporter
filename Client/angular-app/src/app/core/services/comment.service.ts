@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
  
-import { comment } from '../models/comment';
+import { CommentDto } from '../interfaces/comment.interface';
  
 @Injectable()
 export class CommentService { 
@@ -11,7 +11,7 @@ export class CommentService {
    constructor(private http:HttpClient){
    }
  
-   getComments(): Observable<comment[]> {
-        return this.http.get<comment[]>(this.baseURL)
+   getComments(): Observable<CommentDto[]> {
+        return this.http.get<CommentDto[]>(this.baseURL)
    }
 }

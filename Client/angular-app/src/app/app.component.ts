@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { order } from './core/models/order';
 import { OrderService } from './core/services/order.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class AppComponent {
   isAdmin: boolean = false;
   role: string = '';
   username: string = '';
-  orders: order[] = [];
   // @ts-ignore
   userData$: Observable<any>;
 
@@ -40,12 +38,6 @@ export class AppComponent {
 
   onLogout() {       
     this.oidcSecurityService.logoff();
-  }
-
-  getOrders() {
-    this.orderService.getOrders().subscribe(
-      data => {this.orders = data}
-    );
   }
 
   getPrivacy() {

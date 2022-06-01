@@ -3,8 +3,8 @@ import { SwiperComponent } from "swiper/angular";
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation } from "swiper";
-import { comment } from 'src/app/core/models/comment';
 import { CommentService } from 'src/app/core/services/comment.service';
+import { CommentDto } from 'src/app/core/interfaces/comment.interface';
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(public commentService: CommentService) { }
 
-  comments: comment[] = [];
+  comments: CommentDto[] = [];
 
   ngOnInit(): void {
     this.commentService.getComments().subscribe(data => {this.comments = data;})

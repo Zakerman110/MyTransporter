@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { NewOrder, OrderDto } from 'src/app/core/interfaces/order.interface';
-import { order } from 'src/app/core/models/order';
 import { orderStatus } from 'src/app/core/models/orderStatus';
 import { OrderService } from 'src/app/core/services/order.service';
 import { OrderDialogBoxComponent } from '../dialogs/order-dialog-box/order-dialog-box.component';

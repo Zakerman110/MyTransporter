@@ -23,6 +23,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/order-dialog-box.component';
@@ -60,6 +66,10 @@ import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/o
     MatInputModule,
     MatButtonModule,
     MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatProgressSpinnerModule,
     NgbModule,
     BrowserAnimationsModule
@@ -70,7 +80,8 @@ import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/o
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: AuthInterceptor
-     }
+     },
+     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
  ],
   bootstrap: [AppComponent]
 })
