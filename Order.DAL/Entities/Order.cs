@@ -13,6 +13,7 @@ namespace Order.DAL.Entities
         public OrderStatus OrderStatus { get; set; }
         public string UserId { get; set; }
         public int VehicleId { get; set; }
+        public Vehicle Vehicle { get; set; }
         public int RouteId { get; set; }
         public Route Route { get; set; }
         public int JourneyId { get; set; }

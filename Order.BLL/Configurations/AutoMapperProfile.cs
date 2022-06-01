@@ -27,7 +27,11 @@ namespace Order.BLL.Configurations
             CreateMap<RouteRequest, Route>();
             CreateMap<Route, RouteResponse>();
             CreateMap<JourneyRequest, Journey>();
-            CreateMap<Journey, JourneyResponse>();
+            CreateMap<Journey, JourneyResponse>()
+                    .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => ((DateTime)src.StartDate).ToString("dd.MM.yyyy HH:mm")))
+                    //.ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate == null ? ((DateTime)src.EndDate).ToString("dd.MM.yyyy HH:mm") : ""));
+                    .ForMember(dest => dest.EndDate, opt => opt.PreCondition(src => src.EndDate != null))
+                        .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => ((DateTime)src.EndDate).ToString("dd.MM.yyyy HH:mm")));
             CreateMap<OrderRequest, DAL.Entities.Order>();
             CreateMap<DAL.Entities.Order, OrderResponse>()
                     .ForMember(dest => dest.PlaceDate, opt => opt.MapFrom(src => ((DateTime)src.OrderDate).ToString("dd.MM.yyyy HH:mm")))

@@ -39,6 +39,7 @@ namespace Order.DAL.Repositories
                                      .Include(order => order.Route)
                                      .ThenInclude(route => route.EndPoint)
                                      .Include(order => order.Journey)
+                                     .Include(order => order.Vehicle)
                                      .Where(order => order.UserId == id)
                                      .ToListAsync();
 
