@@ -68,8 +68,11 @@
             <a routerLinkActive="Active" routerLink="services" class="header__link">Послуги</a>
           </li>
           <!-- TEST PRIVACY-->
-          <li *ngIf="isAuth" class="header__item">
+          <li *ngIf="isAuth && role == 'Customer'" class="header__item">
             <a routerLinkActive="Active" routerLink="myaccount"  class="header__link" >Особистий кабінет</a>
+          </li>
+          <li *ngIf="isAuth && role == 'Admin'" class="header__item">
+            <a routerLinkActive="Active" routerLink="admin-panel/orders"  class="header__link" >Адмін панель</a>
           </li>
            <!-- TEST PRIVACY-->
           <li *ngIf="!isAuth" class="header__item">

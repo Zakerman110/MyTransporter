@@ -39,6 +39,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/order-dialog-box.component';
 import { CityService } from './core/services/city.service';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { AdminPanelOrderComponent } from './components/admin-panel-order/admin-panel-order.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { CityService } from './core/services/city.service';
     AboutComponent,
     ServicesComponent,
     MyaccountComponent,
-    OrderDialogBoxComponent
+    OrderDialogBoxComponent,
+    AdminPanelComponent,
+    AdminPanelOrderComponent
   ],
   imports: [
     BrowserModule,

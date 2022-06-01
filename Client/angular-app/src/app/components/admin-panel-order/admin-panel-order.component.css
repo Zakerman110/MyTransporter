@@ -1,0 +1,40 @@
+table{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.mat-row {
+    cursor: pointer;
+  }
+ 
+  .mat-row:hover {
+   color: #ffffff!important;
+   background-color: #169B6D;
+   transition: 0.3s;
+ }
+ 
+ .mat-row:active {
+   transform: scale(0.98);
+   /* Scaling button to 0.98 to its original size */
+   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+   /* Lowering the shadow */
+ }
+ 
+ .mat-row-vehicle:nth-child(1){
+   background-color: #169B6D;
+   animation: fadeout 1s forwards;
+ }
+ 
+ @keyframes fadeout {
+     to {
+         background-color:#ffffff;
+     }
+ }
+ 
+  .custom-spinner {
+    margin: 0 auto;
+  }
+ 
+  :host ::ng-deep .custom-spinner circle{   
+   stroke: #169B6D;;
+ }
