@@ -115,5 +115,11 @@ namespace Order.BLL.Services
             var orders = await _unitOfWork.OrdersRepository.GetCompleteByUserId(id);
             return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
         }
+
+        public async Task<IEnumerable<Vehicle>> GetVehiclesFreeOnDate(DateTime date)
+        {
+            var vehicles = await _unitOfWork.OrdersRepository.GetVehiclesFreeOnDate(date);
+            return vehicles;
+        }
     }
 }

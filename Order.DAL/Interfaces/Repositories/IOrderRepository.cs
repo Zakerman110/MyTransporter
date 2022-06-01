@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Order.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace Order.DAL.Interfaces.Repositories
         public Task<Entities.Order> GetDetail(int id);
         public Task<IEnumerable<Entities.Order>> GetByVehicleId(int id);
         public Task<IEnumerable<Entities.Order>> GetCompleteByUserId(string id);
+        public Task<IEnumerable<Vehicle>> GetVehiclesFreeOnDate(DateTime date);
     }
 }

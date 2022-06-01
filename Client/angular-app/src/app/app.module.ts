@@ -38,6 +38,7 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/order-dialog-box.component';
+import { CityService } from './core/services/city.service';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/o
   ],
   providers: [OrderService,
     CommentService,
+    CityService,
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,

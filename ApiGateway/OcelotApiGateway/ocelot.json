@@ -608,6 +608,22 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/order/vehicle/freeOnDate{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7239
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/order/vehicle/freeOnDate{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/order/byUserId/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

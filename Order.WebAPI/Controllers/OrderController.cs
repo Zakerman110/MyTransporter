@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.BLL.Interfaces.Services;
+using Order.DAL.Entities;
 
 namespace Order.WebAPI.Controllers
 {
@@ -70,6 +71,16 @@ namespace Order.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<OrderResponse>>> GetByVehicleId(int Id)
         {
             return Ok(await _orderService.GetByVehicleId(Id));
+        }
+
+        [Route("vehicle/freeOnDate")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehiclesFreeOnDate([FromQuery] DateTime date)
+        {
+            return Ok(await _orderService.GetVehiclesFreeOnDate(date.ToLocalTime()));
         }
 
         [Route("byUserId/{Id}")]

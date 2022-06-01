@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CityDto } from 'src/app/core/interfaces/city.interface';
 import { NewOrder } from 'src/app/core/interfaces/order.interface';
+import { VehicleOrderDto } from 'src/app/core/interfaces/vehicle.interface';
+import { CityService } from 'src/app/core/services/city.service';
+import { OrderService } from 'src/app/core/services/order.service';
 
 export interface UsersData {
   name: string;
@@ -19,16 +23,23 @@ export class OrderDialogBoxComponent implements OnInit {
   vehicleType: string = '0';
   // @ts-ignore
   order: NewOrder = {};
+  // @ts-ignore
+  vehicles: VehicleOrderDto[] = [];
+  // @ts-ignore
+  cities: CityDto[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<OrderDialogBoxComponent>,    
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: UsersData) {
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: UsersData,
+    public cityService: CityService,
+    public orderService: OrderService) {
     console.log(data);
     this.local_data = {...data};
     this.action = this.local_data.action;
   }
 
   ngOnInit(): void {
+    this.cityService.getCities().subscribe(data => { this.cities = data })
   }
   
   doAction(){
@@ -40,6 +51,8 @@ export class OrderDialogBoxComponent implements OnInit {
 
   // @ts-ignore
   public onDate(event): void {
+    this.orderService.getFreeVehicles(this.local_data.startDate).subscribe(data => { this.vehicles = data })
+
     console.log("Обрана дата :", this.local_data.startDate)
 
     this.order.userId = "Usd1U23jksGASfk@412125JK";

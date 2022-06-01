@@ -24,10 +24,8 @@
   <!-- Select car start -->
   <mat-form-field appearance="fill">
     <mat-label>Виберіть трансопрт</mat-label>
-    <mat-select [disabled]="false">
-      <mat-option value="option1">Option 1</mat-option>
-      <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-      <mat-option value="option3">Option 3</mat-option>
+    <mat-select [disabled]="local_data.startDate == null" [(ngModel)]="local_data.vehicleId">
+      <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.color}} {{vehicle.make}} {{vehicle.model}}</mat-option>
     </mat-select>
   </mat-form-field>  
   <!-- Select car end -->
@@ -38,10 +36,8 @@
   -->
   <mat-form-field appearance="fill">
     <mat-label>Виберіть пункт відправлення</mat-label>
-    <mat-select [disabled]="false">
-      <mat-option value="option1">Option 1</mat-option>
-      <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-      <mat-option value="option3">Option 3</mat-option>
+    <mat-select [disabled]="false" [(ngModel)]="local_data.startPointId">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
     </mat-select>
   </mat-form-field>  
   <!--
@@ -51,10 +47,8 @@
   -->
   <mat-form-field appearance="fill">
     <mat-label>Виберіть пункт призначення</mat-label>
-    <mat-select [disabled]="false">
-      <mat-option value="option1">Option 1</mat-option>
-      <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-      <mat-option value="option3">Option 3</mat-option>
+    <mat-select [disabled]="false" [(ngModel)]="local_data.endPointId">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
     </mat-select>
   </mat-form-field>  
   <!--

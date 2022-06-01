@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
  
 import { NewOrder, OrderDto } from '../interfaces/order.interface';
+import { VehicleOrderDto } from '../interfaces/vehicle.interface';
 
 const httpOptions = {
    headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -17,6 +18,17 @@ export class OrderService {
  
    getOrders(): Observable<OrderDto[]> {
         return this.http.get<OrderDto[]>(this.baseURL)
+   }
+
+   getFreeVehicles(date: string): Observable<VehicleOrderDto[]> {
+      const query = JSON.stringify(date);
+      console.log("Date to search vehicles:");
+      console.log(query);
+      const myurl = this.baseURL + "/vehicle" + "/freeOnDate" + "?date=" + query.replace(/['"]+/g, '');
+      console.log("URL is:");
+      console.log(myurl);
+      return this.http.get<VehicleOrderDto[]>(myurl)
+      //return this.http.get<VehicleOrderDto[]>(this.baseURL + "/vehicle" + "/freeOnDate" + "?date=2022-03-16T08:00:17.000Z")
    }
 
    getOrdersByUserId(id: string): Observable<OrderDto[]> {
