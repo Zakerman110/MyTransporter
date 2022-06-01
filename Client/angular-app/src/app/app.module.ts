@@ -41,6 +41,7 @@ import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/o
 import { CityService } from './core/services/city.service';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AdminPanelOrderComponent } from './components/admin-panel-order/admin-panel-order.component';
+import { OrderDialogEditBoxComponent } from './components/dialogs/order-dialog-edit-box/order-dialog-edit-box.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AdminPanelOrderComponent } from './components/admin-panel-order/admin-p
     MyaccountComponent,
     OrderDialogBoxComponent,
     AdminPanelComponent,
-    AdminPanelOrderComponent
+    AdminPanelOrderComponent,
+    OrderDialogEditBoxComponent
   ],
   imports: [
     BrowserModule,

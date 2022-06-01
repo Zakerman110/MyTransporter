@@ -32,9 +32,11 @@ namespace Order.BLL.Services
             return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
         }
 
-        public Task<IEnumerable<OrderResponse>> GetDetailAsync()
+        public async Task<IEnumerable<OrderResponse>> GetCompleteAsync()
         {
-            throw new NotImplementedException();
+            var orders = await _unitOfWork.OrdersRepository.GetComplete();
+
+            return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
         }
 
         public async Task<OrderResponse> GetByIdAsync(int id)

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
  
-import { NewOrder, OrderDto } from '../interfaces/order.interface';
+import { EditOrder, NewOrder, OrderDto } from '../interfaces/order.interface';
 import { VehicleOrderDto } from '../interfaces/vehicle.interface';
 
 const httpOptions = {
@@ -17,7 +17,7 @@ export class OrderService {
    }
  
    getOrders(): Observable<OrderDto[]> {
-        return this.http.get<OrderDto[]>(this.baseURL)
+        return this.http.get<OrderDto[]>(this.baseURL + "/detail")
    }
 
    getFreeVehicles(date: string): Observable<VehicleOrderDto[]> {
@@ -40,6 +40,13 @@ export class OrderService {
       console.log("Add Order");
       console.log(body);
       return this.http.post(this.baseURL, body, httpOptions);
+   }
+
+   editOrder(order: EditOrder): Observable<unknown> {
+      const body = JSON.stringify(order);
+      console.log("Edit Order");
+      console.log(body);
+      return this.http.put(this.baseURL, body, httpOptions);
    }
   
 

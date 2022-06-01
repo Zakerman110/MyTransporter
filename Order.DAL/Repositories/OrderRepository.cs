@@ -27,6 +27,19 @@ namespace Order.DAL.Repositories
             return order;
         }
 
+        public async Task<IEnumerable<Entities.Order>> GetComplete()
+        {
+            var order = await _dbSet.Include(order => order.Route)
+                                     .ThenInclude(route => route.StartPoint)
+                                     .Include(order => order.Route)
+                                     .ThenInclude(route => route.EndPoint)
+                                     .Include(order => order.Journey)
+                                     .Include(order => order.Vehicle)
+                                     .ToListAsync();
+
+            return order;
+        }
+
         public async Task<IEnumerable<Entities.Order>> GetByVehicleId(int id)
         {
             return await _dbSet.Where(o => o.VehicleId == id).ToListAsync();             

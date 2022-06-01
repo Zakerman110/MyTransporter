@@ -12,7 +12,7 @@ namespace Order.BLL.Interfaces.Services
     public interface IOrderService
     {
         Task<IEnumerable<OrderResponse>> GetAsync();
-        Task<IEnumerable<OrderResponse>> GetDetailAsync();
+        Task<IEnumerable<OrderResponse>> GetCompleteAsync();
         Task<OrderResponse> GetByIdAsync(int id);
         Task<OrderResponse> GetByIdDetailAsync(int id);
         Task<IEnumerable<OrderResponse>> GetByVehicleId(int id);

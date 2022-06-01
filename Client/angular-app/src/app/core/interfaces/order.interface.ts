@@ -21,3 +21,13 @@ export interface NewOrder {
   endPointId: number;
   startDate: string
 }
+
+export interface EditOrder {
+  orderId: number;
+  status: orderStatus;
+  vehicleId: number;
+  startPointId: number;
+  endPointId: number;
+  startDate: string
+  endDate: string
+}

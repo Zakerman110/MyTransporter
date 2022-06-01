@@ -53,6 +53,16 @@ namespace Order.WebAPI.Controllers
             return Ok(await _orderService.GetByIdAsync(Id));
         }
 
+        [Route("detail")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<OrderResponse>>> GetDetail(int Id)
+        {
+            return Ok(await _orderService.GetCompleteAsync());
+        }
+
         [Route("detail/{Id}")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
