@@ -19,7 +19,7 @@ namespace Order.BLL.Interfaces.Services
         Task<IEnumerable<Vehicle>> GetVehiclesFreeOnDate(DateTime date);
         Task<IEnumerable<OrderResponse>> GetCompleteByUserId(string id);
         Task<OrderResponse> AddAsync(OrderRequest request);
-        Task UpdateAsync(OrderRequest request);
+        Task UpdateAsync(OrderEditRequest request);
         Task DeleteAsync(int id);
     }
 }

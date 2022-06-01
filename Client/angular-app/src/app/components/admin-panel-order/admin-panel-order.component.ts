@@ -52,13 +52,16 @@ export class AdminPanelOrderComponent implements OnInit {
 
   editRowData(newRow: any){  
     this.editedOrder = {       
-       orderId: parseInt(newRow.id),
-       status: newRow.status,
+       id: parseInt(newRow.id),
+       userId: newRow.userId,
+       placeDate: newRow.placeDate,
        vehicleId: parseInt(newRow.vehicle.externalId),
+       status: newRow.status,
        startPointId: parseInt(newRow.route.startPoint.id),
        endPointId: parseInt(newRow.route.endPoint.id),
+       journeyId: parseInt(newRow.journey.id),
        startDate: newRow.journey.startDate,
-       endDate: newRow.journey.startDate
+       endDate: newRow.journey.endDate
     };
 
     console.log("Edited order:", this.editedOrder);

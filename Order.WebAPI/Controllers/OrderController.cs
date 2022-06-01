@@ -120,12 +120,12 @@ namespace Order.WebAPI.Controllers
             }
         }
 
-        [Route("{id?}")]
+        //[Route("{id}")]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Put([FromBody] OrderRequest order)
+        public async Task<ActionResult> Put([FromBody] OrderEditRequest order)
         {
             try
             {
