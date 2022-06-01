@@ -26,7 +26,7 @@ export class AdminPanelOrderComponent implements OnInit {
     this.loading = true;
     this.orderService.getOrders().subscribe(data => {
       this.dataSource = data;
-      console.log(data);
+      console.log("Received data: ", data);
       this.loading = false;
     })
   }
@@ -52,18 +52,18 @@ export class AdminPanelOrderComponent implements OnInit {
 
   editRowData(newRow: any){  
     this.editedOrder = {       
-       orderId: parseInt(newRow.orderId),
+       orderId: parseInt(newRow.id),
        status: newRow.status,
-       vehicleId: parseInt(newRow.vehicleId),
-       startPointId: parseInt(newRow.startPointId),
-       endPointId: parseInt(newRow.endPointId),
-       startDate: newRow.startDate,
-       endDate: newRow.startDate
+       vehicleId: parseInt(newRow.vehicle.externalId),
+       startPointId: parseInt(newRow.route.startPoint.id),
+       endPointId: parseInt(newRow.route.endPoint.id),
+       startDate: newRow.journey.startDate,
+       endDate: newRow.journey.startDate
     };
 
     console.log("Edited order:", this.editedOrder);
     
-    //this.orderService.editOrder(this.editedOrder).subscribe();    
+    this.orderService.editOrder(this.editedOrder).subscribe();    
   }
 
 }

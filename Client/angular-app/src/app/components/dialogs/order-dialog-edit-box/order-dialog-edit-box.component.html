@@ -27,10 +27,11 @@
   </mat-form-field>  
   <!-- DatePicker end date end -->
   <!-- Select car start -->
+  <!-- PROBLEM INCORECT SELECTING CARS -->
   <mat-form-field appearance="fill">
     <mat-label>Виберіть трансопрт</mat-label>
-    <mat-select [disabled]="local_data.journey.startDate == null" [(ngModel)]="local_data.vehicle.externalId">
-      <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.color}} {{vehicle.make}} {{vehicle.model}}</mat-option>
+    <mat-select [disabled]="local_data.journey.startDate == null" [compareWith]="compareObjects" [(ngModel)]="local_data.vehicle.externalId">
+      <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.externalId">{{vehicle.color}} {{vehicle.make}} {{vehicle.model}}</mat-option>
     </mat-select>
   </mat-form-field>  
   <!-- Select car end -->

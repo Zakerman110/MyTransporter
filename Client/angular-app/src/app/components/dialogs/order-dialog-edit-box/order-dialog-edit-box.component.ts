@@ -23,15 +23,15 @@ export class OrderDialogEditBoxComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: UsersData,
     public orderService: OrderService,
     public cityService: CityService) {
-    console.log(data);
+    console.log("Data in edit dialog:", data);
     this.local_data = {...data};
     this.action = this.local_data.action;
     console.log("local_date of edit dialog:", this.local_data)
+    this.cityService.getCities().subscribe(data => { this.cities = data })
+    this.orderService.getFreeVehicles(this.local_data.journey.startDate).subscribe(data => { this.vehicles = data })
   }
 
   ngOnInit(): void {
-    this.cityService.getCities().subscribe(data => { this.cities = data })
-    this.orderService.getFreeVehicles(this.local_data.journey.startDate).subscribe(data => { this.vehicles = data })
   }
 
   doAction(){
@@ -44,6 +44,10 @@ export class OrderDialogEditBoxComponent implements OnInit {
   // @ts-ignore
   public onDate(event): void {
     this.orderService.getFreeVehicles(this.local_data.startDate).subscribe(data => { this.vehicles = data })
+  }
+
+  compareObjects(o1: any, o2: any): boolean {
+    return o1.name === o2.name && o1.externalId === o2.externalId;
   }
 
 }
