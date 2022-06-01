@@ -1,6 +1,7 @@
 <h1 mat-dialog-title><strong>Нове замовлення</strong></h1>
 <div mat-dialog-content>
   <label id="example-radio-group-label">Тип транспорту</label>
+  <!-- Radio Buttons start -->
   <mat-radio-group
     aria-labelledby="example-radio-group-label"
     class="example-radio-group"
@@ -11,13 +12,16 @@
     <mat-radio-button class="example-radio-button" value="1">
       Пасажирський
     </mat-radio-button>
-  </mat-radio-group>
+  </mat-radio-group>  
+  <!-- Radio Buttons start -->
+  <!-- DatePicker start -->
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" (dateInput)="onDate($event)" placeholder="Виберіть дату" [(ngModel)]="local_data.startDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker ></mat-datepicker>
-  </mat-form-field>
-  <div>{{local_data.startDate}}</div>
+    <input matInput [ngxMatDatetimePicker]="picker" (dateInput)="onDate($event)" placeholder="Виберіть дату" [(ngModel)]="local_data.startDate">
+    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+  </mat-form-field>  
+  <!-- DatePicker end -->
+  <!-- Select car start -->
   <mat-form-field appearance="fill">
     <mat-label>Виберіть трансопрт</mat-label>
     <mat-select [disabled]="false">
@@ -25,21 +29,46 @@
       <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
       <mat-option value="option3">Option 3</mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field>  
+  <!-- Select car end -->
+  <!--
   <mat-form-field >
     <input placeholder="VehicleId" matInput [(ngModel)]="local_data.vehicleId">    
   </mat-form-field>
+  -->
+  <mat-form-field appearance="fill">
+    <mat-label>Виберіть пункт відправлення</mat-label>
+    <mat-select [disabled]="false">
+      <mat-option value="option1">Option 1</mat-option>
+      <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+      <mat-option value="option3">Option 3</mat-option>
+    </mat-select>
+  </mat-form-field>  
+  <!--
   <mat-form-field >
     <input placeholder="StartPointId" matInput [(ngModel)]="local_data.startPointId">  
   </mat-form-field>
+  -->
+  <mat-form-field appearance="fill">
+    <mat-label>Виберіть пункт призначення</mat-label>
+    <mat-select [disabled]="false">
+      <mat-option value="option1">Option 1</mat-option>
+      <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+      <mat-option value="option3">Option 3</mat-option>
+    </mat-select>
+  </mat-form-field>  
+  <!--
   <mat-form-field >
     <input placeholder="EndPointId" matInput [(ngModel)]="local_data.endPointId">
   </mat-form-field>
+  -->
+  <!--
   <mat-form-field >
     <input placeholder="StartDate" matInput [(ngModel)]="local_data.startDate">
   </mat-form-field>
+  -->
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="doAction()" color="primary">{{action}}</button>
-  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+  <button mat-button (click)="doAction()" color="primary">Додати</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Відмінити</button>
 </div>

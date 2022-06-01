@@ -58,7 +58,7 @@ export class MyaccountComponent implements OnInit {
   openDialog(action: string, obj: any) {
     obj.action = action;
     const dialogRef = this.dialog.open(OrderDialogBoxComponent, {
-      width: '300px',
+      width: '250px',
       data:obj
     });
 

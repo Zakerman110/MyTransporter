@@ -29,6 +29,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/order-dialog-box.component';
@@ -70,6 +76,9 @@ import { OrderDialogBoxComponent } from './components/dialogs/order-dialog-box/o
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     MatProgressSpinnerModule,
     NgbModule,
     BrowserAnimationsModule
