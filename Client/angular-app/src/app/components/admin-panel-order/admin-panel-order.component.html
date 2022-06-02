@@ -4,7 +4,7 @@
     <table mat-table [dataSource]="dataSource" *ngIf="!loading" #mytable class="my-table mat-elevation-z8">
         <ng-container matColumnDef="placeDate">
         <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.placeDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.placeDate | date:"dd.MM.yyyy HH:mm"}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -31,12 +31,12 @@
 
         <ng-container matColumnDef="journeyStart">
         <th mat-header-cell *matHeaderCellDef> Start date </th>
-        <td mat-cell *matCellDef="let element"> {{element.journey.startDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.journey.startDate | date:"dd.MM.yyyy HH:mm"}} </td>
         </ng-container>
 
         <ng-container matColumnDef="journeyEnd">
         <th mat-header-cell *matHeaderCellDef> End date </th>
-        <td mat-cell *matCellDef="let element"> {{element.journey.endDate == "0001-01-01T00:00:00" ? "" : element.journey.endDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.journey.endDate == "0001-01-01T00:00:00" ? "" : element.journey.endDate | date:"dd.MM.yyyy HH:mm"}} </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
