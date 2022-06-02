@@ -24,11 +24,14 @@ export class AppComponent {
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken }) => {
       this.isAuth = isAuthenticated;
       console.log('is authenticated', this.isAuth);
-      console.log("userdata is", userData);
-      this.role = userData.role;
-      this.username = userData.username;
-      console.log('you role is', this.role);
-      this.isAdmin = this.role === 'Admin';
+      if(this.isAuth)
+      {
+        console.log("userdata is", userData);
+        this.role = userData.role;
+        this.username = userData.username;
+        console.log('you role is', this.role);
+        this.isAdmin = this.role === 'Admin';
+      }
     });
   }
 

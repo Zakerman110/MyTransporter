@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 import { AboutComponent } from './components/about/about.component';
 import { AdminPanelOrderComponent } from './components/admin-panel-order/admin-panel-order.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
@@ -27,11 +28,19 @@ const routes: Routes = [
   },
   {
     path: 'myaccount',
-    component: MyaccountComponent
+    component: MyaccountComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'Customer'
+    }
   },
   {
     path: 'admin-panel',
     component: AdminPanelComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'Admin'
+    },
     children: [
       { path: 'orders', component: AdminPanelOrderComponent }
     ]
