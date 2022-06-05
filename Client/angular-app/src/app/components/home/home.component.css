@@ -1,0 +1,35 @@
+@import '~swiper/swiper-bundle.min.css';
+
+.intro__title {
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 60px;
+    max-width: 916px;
+}
+
+.intro__subtitle {    
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    max-width: 700px;
+}
+
+.comment__card-name {
+    font-weight: 500;
+    font-size: 27.5px;
+    line-height: 35px;
+    margin-top:50px;
+    margin-bottom: 20px;
+}
+
+ngb-rating {
+    color: #FFC107;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.comment__card-description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+}

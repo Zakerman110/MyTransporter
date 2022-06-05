@@ -32,9 +32,11 @@ namespace Order.BLL.Services
             return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
         }
 
-        public Task<IEnumerable<OrderResponse>> GetDetailAsync()
+        public async Task<IEnumerable<OrderResponse>> GetCompleteAsync()
         {
-            throw new NotImplementedException();
+            var orders = await _unitOfWork.OrdersRepository.GetComplete();
+
+            return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
         }
 
         public async Task<OrderResponse> GetByIdAsync(int id)
@@ -68,14 +70,28 @@ namespace Order.BLL.Services
 
         public async Task<OrderResponse> AddAsync(OrderRequest request)
         {
+            // Creating Route
+            var route = _unitOfWork.RouteRepository.Get().Result.Where(route => 
+                route.EndPointId == request.EndPointId && route.StartPointId == request.StartPointId).FirstOrDefault();
+
+            if(route == null)
+            {
+                route = new Route() { StartPointId = request.StartPointId, EndPointId = request.EndPointId };
+                _unitOfWork.RouteRepository.Create(route);
+                await _unitOfWork.SaveChangesAsync();
+            }
+
+            // Creating Journey
+            var journey = new Journey() { StartDate = request.StartDate };
+            _unitOfWork.JourneyRepository.Create(journey);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Creating order
             var order = _mapper.Map<OrderRequest, DAL.Entities.Order>(request);
 
             order.OrderDate = DateTime.Now;
             order.OrderStatus = DAL.Enums.OrderStatus.PENDING;
-
-            var journey = _mapper.Map<JourneyRequest, Journey>(request.Journey);
-            await _unitOfWork.JourneyRepository.Create(journey);
-
+            order.RouteId = route.Id;
             order.JourneyId = journey.Id;
 
             await _unitOfWork.OrdersRepository.Create(order);
@@ -83,9 +99,49 @@ namespace Order.BLL.Services
             return _mapper.Map<DAL.Entities.Order, OrderResponse>(order);
         }
 
-        public async Task UpdateAsync(OrderRequest request)
+        public async Task UpdateAsync(OrderEditRequest request)
         {
-            var order = _mapper.Map<OrderRequest, DAL.Entities.Order>(request);
+            // Creating Route
+            var route = _unitOfWork.RouteRepository.Get().Result.Where(route =>
+                route.EndPointId == request.EndPointId && route.StartPointId == request.StartPointId).FirstOrDefault();
+
+            if (route == null)
+            {
+                route = new Route() { StartPointId = request.StartPointId, EndPointId = request.EndPointId };
+                _unitOfWork.RouteRepository.Create(route);
+                await _unitOfWork.SaveChangesAsync();
+            }
+
+            // Creating Journey
+            /*var jounrey = _unitOfWork.JourneyRepository.Get().Result.Where(jounrey =>
+                jounrey.StartDate == request.StartDate && (jounrey.EndDate == request.EndDate || request.EndDate.ToString() == "01.01.0001 0:00:00")).FirstOrDefault();
+
+            if (request.EndDate.ToString() != "01.01.0001 0:00:00")
+            {
+
+            }
+
+            if(jounrey == null)
+            {
+                var journey = new Journey() { StartDate = request.StartDate };
+                _unitOfWork.JourneyRepository.Create(journey);
+                await _unitOfWork.SaveChangesAsync();
+            }*/
+
+            var journey = await _unitOfWork.JourneyRepository.FindById(request.JourneyId);
+            journey.StartDate = request.StartDate;
+            if (request.EndDate.ToString() != "01.01.0001 0:00:00")
+            {
+                journey.EndDate = request.EndDate;
+            }
+            _unitOfWork.JourneyRepository.Update(journey);
+            await _unitOfWork.SaveChangesAsync();
+
+            var order = _mapper.Map<OrderEditRequest, DAL.Entities.Order>(request);
+
+            order.RouteId = route.Id;
+            order.JourneyId = journey.Id;
+
             await _unitOfWork.OrdersRepository.Update(order);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -94,6 +150,18 @@ namespace Order.BLL.Services
         {
             await _unitOfWork.OrdersRepository.Remove(id);
             await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<OrderResponse>> GetCompleteByUserId(string id)
+        {
+            var orders = await _unitOfWork.OrdersRepository.GetCompleteByUserId(id);
+            return orders.Select(_mapper.Map<DAL.Entities.Order, OrderResponse>);
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetVehiclesFreeOnDate(DateTime date)
+        {
+            var vehicles = await _unitOfWork.OrdersRepository.GetVehiclesFreeOnDate(date);
+            return vehicles;
         }
     }
 }

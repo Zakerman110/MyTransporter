@@ -1,0 +1,14 @@
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: white!important;
+}
+
+.mat-dialog-actions {
+    justify-content: center;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  

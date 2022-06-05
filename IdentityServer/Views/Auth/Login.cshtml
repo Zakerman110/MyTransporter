@@ -1,0 +1,60 @@
+﻿@model LoginViewModel 
+
+<div class="login-page">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Local Account</h2>
+                </div>
+
+                <div class="card-body">
+                    <form asp-controller="Auth" asp-action="Login" method="post">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <div class="form-group">
+                            <label asp-for="Username">Username</label>
+                            <input class="form-control" asp-for="Username" />
+                            <span asp-validation-for="Username"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">Password</label>
+                            <input type="password" class="form-control" asp-for="Password" />
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </form> 
+                    <a asp-controller="Auth" asp-action="Register" 
+                        asp-route-returnUrl="@Model.ReturnUrl">Register</a>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.ExternalProviders.Any())
+        {
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>External Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Auth" asp-action="ExternalLogin" 
+                              asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <ul class="list-inline">
+                                @foreach (var provider in Model.ExternalProviders)
+                                {
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-secondary" name="provider"
+                                                type="submit"
+                                                value="@provider.Name">
+                                            @provider.Name
+                                        </button>
+                                    </li>
+                                }
+                        </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

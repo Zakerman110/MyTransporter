@@ -214,7 +214,7 @@ namespace Order.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime>("StartDate")
@@ -253,9 +253,6 @@ namespace Order.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("JourneyId")
                         .HasColumnType("int");
 
@@ -267,6 +264,10 @@ namespace Order.DAL.Migrations
 
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
@@ -283,31 +284,31 @@ namespace Order.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CustomerId = 1,
                             JourneyId = 1,
                             OrderDate = new DateTime(2022, 3, 15, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = 3,
                             RouteId = 3,
+                            UserId = "3d1fc722-331d-4cdf-8fd3-515ae3c42088",
                             VehicleId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CustomerId = 2,
                             JourneyId = 2,
                             OrderDate = new DateTime(2022, 3, 16, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = 3,
                             RouteId = 5,
+                            UserId = "e1c33bea-9908-4419-a124-b55c604b5bc8",
                             VehicleId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CustomerId = 3,
                             JourneyId = 3,
                             OrderDate = new DateTime(2022, 3, 18, 12, 35, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = 3,
                             RouteId = 7,
+                            UserId = "3d1fc722-331d-4cdf-8fd3-515ae3c42088",
                             VehicleId = 2
                         });
                 });

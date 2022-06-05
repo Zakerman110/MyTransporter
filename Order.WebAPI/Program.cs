@@ -1,6 +1,7 @@
 using EventBus.Messages.Common;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Order.BLL.Configurations;
 using Order.BLL.EventBusConsumer;
@@ -22,6 +23,30 @@ builder.Services.AddDbContext<MyTransporterOrderContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", config =>
+    {
+        config.Authority = "https://localhost:7225/";
+        config.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+        //config.Audience = "OrderAPI";
+
+        //config.RequireHttpsMetadata = false;
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "angular"));
+});
+
+builder.Services.AddCors(confg =>
+    confg.AddPolicy("AllowAll",
+        p => p.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
 
 // MassTransit-RabbitMQ Configuration
 builder.Services.AddMassTransit(config => {
@@ -100,7 +125,11 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseCors("AllowAll");
+
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -109,6 +138,13 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-await PrebDb.PrepPopulationAsync(app);
+try
+{
+    //await PrebDb.PrepPopulationAsync(app);
+}
+catch (Exception ex)
+{
+    
+}
 
 app.Run();

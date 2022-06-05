@@ -1,0 +1,58 @@
+<h1 mat-dialog-title><strong>Редагування замовлення</strong></h1>
+<div mat-dialog-content>
+    <!--Status start-->
+    <mat-form-field appearance="fill">
+    <mat-label>Виберіть статус</mat-label>
+    <mat-select [disabled]="false" [(ngModel)]="local_data.status">
+        <mat-option [value]=0>PENDING</mat-option>
+        <mat-option [value]=1>CONFIRMED</mat-option>
+        <mat-option [value]=2>IN_PROGRESS</mat-option>
+        <mat-option [value]=3>COMPLETED</mat-option>
+        <mat-option [value]=4>CANCELED</mat-option>
+    </mat-select>
+    </mat-form-field>  
+    <!--Status end-->
+  <!-- DatePicker start date start -->
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Виберіть початкову дату" [(ngModel)]="local_data.journey.startDate">
+    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+  </mat-form-field>  
+  <!-- DatePicker start date end -->
+  <!-- DatePicker end date start -->
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Виберіть кінцеву дату" [(ngModel)]="local_data.journey.endDate">
+    <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker1></ngx-mat-datetime-picker>
+  </mat-form-field>  
+  <!-- DatePicker end date end -->
+  <!-- Select car start -->
+  <!-- PROBLEM INCORECT SELECTING CARS -->
+  <mat-form-field appearance="fill">
+    <mat-label>Виберіть трансопрт</mat-label>
+    <mat-select [disabled]="local_data.journey.startDate == null" [compareWith]="compareObjects" [(ngModel)]="local_data.vehicle.externalId">
+      <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.externalId">{{vehicle.color}} {{vehicle.make}} {{vehicle.model}}</mat-option>
+    </mat-select>
+  </mat-form-field>  
+  <!-- Select car end -->
+  <!-- Select start city start -->
+  <mat-form-field appearance="fill">
+    <mat-label>Виберіть пункт відправлення</mat-label>
+    <mat-select [disabled]="false" [(ngModel)]="local_data.route.startPoint.id">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>  
+  <!-- Select start city end -->
+  <!-- Select end city start -->
+  <mat-form-field appearance="fill">
+    <mat-label>Виберіть пункт призначення</mat-label>
+    <mat-select [disabled]="false" [(ngModel)]="local_data.route.endPoint.id">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>  
+  <!-- Select end city end -->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()" color="primary">Зберегти</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Відмінити</button>
+</div>

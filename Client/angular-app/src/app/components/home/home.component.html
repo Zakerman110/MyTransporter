@@ -1,0 +1,30 @@
+<div>
+    <h1 class="intro__title">
+        Вантажні та пасажирські <span class="bold">перевезення</span> по всій <span class="green">Україні</span> та <span class="green">Європі</span>
+    </h1>
+    <p class="intro__subtitle">
+        Ми постійно розробляємо більш раціональні та стійкі способи надання ефективних логістичних рішень, щоб додати цінність вашому бізнесу
+    </p>
+    <a class="button__green" routerLinkActive="Active" routerLink="services">Детальніше</a>
+</div>
+<div>
+  <swiper
+        [slidesPerView]="3"
+        [spaceBetween]="50"
+        (swiper)="onSwiper($event)"
+        (slideChange)="onSlideChange()"
+        [navigation]="true"
+        [pagination]="{ clickable: true }"
+        [scrollbar]="{ draggable: true }"
+      >
+        <ng-template *ngFor="let comment of comments" swiperSlide>
+          <h3 class="comment__card-name">
+            {{comment.name}}
+          </h3>
+          <ngb-rating [max]="5" [(rate)]="comment.rate" [readonly]="true"></ngb-rating>
+          <p class="comment__card-description">
+            {{comment.description}}
+          </p>
+        </ng-template>
+    </swiper>
+</div>
