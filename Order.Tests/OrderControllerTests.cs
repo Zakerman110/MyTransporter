@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Order.BLL.Configurations;
+using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.BLL.Interfaces.Services;
 using Order.DAL.Entities;
@@ -19,16 +21,6 @@ namespace Order.Tests
 {
     public class OrderControllerTests
     {
-
-        /*private readonly IMapper _mapper;
-
-        public OrderControllerTests()
-        {
-            var myProfile = new AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-            _mapper = new Mapper(configuration);
-        }*/
-
         private List<OrderResponse> GetTestOrders()
         {
             var orders = new List<OrderResponse>
@@ -62,8 +54,8 @@ namespace Order.Tests
             // Assert
             var result = actionResult.Result as OkObjectResult;
             var entity = Assert.IsType<OrderResponse>(result.Value);
-            Assert.Equal(testOrderId, entity.Id);
-            Assert.Equal(OrderStatus.COMPLETED, entity.Status);
+            entity.Id.Should().Be(testOrderId);
+            entity.Status.Should().Be(OrderStatus.COMPLETED);
         }
 
         [Fact]
@@ -81,11 +73,91 @@ namespace Order.Tests
 
             // Assert
             NotFoundException exception = await Assert.ThrowsAsync<NotFoundException>(act);
-            Assert.Equal("Order with id 0 not found.", exception.Message);
+            exception.Message.Should().Be("Order with id 0 not found.");
+        }
 
-             /*// Assert
-             NotFoundException exception = await Assert.ThrowsAsync<NotFoundException>(async () => await controller.GetOrderById(testOrderId));
-            Assert.Equal("Order with id 0 not found.", exception.Message);*/
+        [Fact]
+        public async Task Get_ReturnsListOfOrders()
+        {
+            // Arrange
+            var mockRepo = new Mock<IOrderService>();
+            mockRepo.Setup(repo => repo.GetAsync())
+                .ReturnsAsync(GetTestOrders());
+            var controller = new OrderController(mockRepo.Object);
+
+            // Act
+            var actionResult = await controller.Get();
+
+            // Assert
+            var result = actionResult.Result as OkObjectResult;
+            var entity = Assert.IsType<List<OrderResponse>>(result.Value);
+            entity.Count().Should().Be(4);
+        }
+
+        [Fact]
+        public async Task Get_ThrowsNotFound()
+        {
+            // Arrange
+            var mockRepo = new Mock<IOrderService>();
+            mockRepo.Setup(repo => repo.GetAsync())
+                .Throws(new NotFoundException("Order not found."));
+            var controller = new OrderController(mockRepo.Object);
+
+            // Act
+            var actionResult = await controller.Get();
+
+            // Assert
+            actionResult.Result.Should().BeOfType<NotFoundObjectResult>();
+        }
+
+        [Fact]
+        public async Task Post_ReturnsCreatedAtRoute()
+        {
+            //Arrange
+            var newOrder = new OrderRequest();
+            var newOrderId = 4; // Last in list
+            var mockRepo = new Mock<IOrderService>();
+            mockRepo.Setup(repo => repo.AddAsync(newOrder))
+                .ReturnsAsync(new OrderResponse() { Id = newOrderId });
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            ActionResult<OrderResponse> actionResult = await controller.Post(newOrder);
+            CreatedAtRouteResult result = actionResult.Result as CreatedAtRouteResult;
+            var actual = result.Value as OrderResponse;
+
+            //Assert
+            actual.Id.Should().Be(newOrderId);
+        }
+
+        [Fact]
+        public async Task Put_ReturnsOk()
+        {
+            //Arrange
+            var editOrder = new OrderEditRequest();
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.Put(editOrder);
+
+            //Assert
+            actionResult.Should().BeOfType<OkResult>();
+        }
+
+        [Fact]
+        public async Task Delete_ReturnsOk()
+        {
+            //Arrange
+            var orderId = 1;
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.Delete(orderId);
+
+            //Assert
+            actionResult.Should().BeOfType<OkResult>();
         }
     }
 }
