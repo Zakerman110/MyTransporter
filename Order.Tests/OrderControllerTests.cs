@@ -159,5 +159,97 @@ namespace Order.Tests
             //Assert
             actionResult.Should().BeOfType<OkResult>();
         }
+
+        [Fact]
+        public async Task Delete_ReturnsNotFound()
+        {
+            //Arrange
+            var orderId = 1;
+            var mockRepo = new Mock<IOrderService>();
+            mockRepo.Setup(repo => repo.DeleteAsync(orderId))
+                .Throws(new NotFoundException("Order with id 0 not found."));
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.Delete(orderId);
+
+            //Assert
+            actionResult.Should().BeOfType<NotFoundObjectResult>();
+        }
+
+        [Fact]
+        public async Task GetCompleteByUserId_ReturnsOk()
+        {
+            //Arrange
+            var userId = "bJKASdbhkAGS14kjASgkjas";
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.GetCompleteByUserId(userId);
+
+            //Assert
+            actionResult.Result.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task GetVehicleFreeOnDate_ReturnsOk()
+        {
+            //Arrange
+            var date = new DateTime(2022, 06, 02);
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.GetVehiclesFreeOnDate(date);
+
+            //Assert
+            actionResult.Result.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task GetByVehicleId_ReturnsOk()
+        {
+            //Arrange
+            var vehicleId = 1;
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.GetByVehicleId(vehicleId);
+
+            //Assert
+            actionResult.Result.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task GetByIdDetail_ReturnsOk()
+        {
+            //Arrange
+            var orderId = 1;
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.GetByIdDetail(orderId);
+
+            //Assert
+            actionResult.Result.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task GetDetail_ReturnsOk()
+        {
+            //Arrange
+            var orderId = 1;
+            var mockRepo = new Mock<IOrderService>();
+            var controller = new OrderController(mockRepo.Object);
+
+            //Act
+            var actionResult = await controller.GetDetail();
+
+            //Assert
+            actionResult.Result.Should().BeOfType<OkObjectResult>();
+        }
     }
 }

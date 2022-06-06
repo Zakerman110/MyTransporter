@@ -13,13 +13,18 @@ namespace Order.DAL
             //Database.EnsureCreated();
         }
 
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Region> Regions { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Route> Routes { get; set; }
-        public DbSet<Journey> Journeys { get; set; }
-        public DbSet<Entities.Order> Orders { get; set; }
-        public DbSet<Vehicle> Vehicles { get; set; }
+        public MyTransporterOrderContext()
+        {
+
+        }
+
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Route> Routes { get; set; }
+        public virtual DbSet<Journey> Journeys { get; set; }
+        public virtual DbSet<Entities.Order> Orders { get; set; }
+        public virtual DbSet<Vehicle> Vehicles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
