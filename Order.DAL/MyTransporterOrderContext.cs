@@ -38,5 +38,10 @@ namespace Order.DAL
             modelBuilder.ApplyConfiguration(new VehicleConfiguration());
 
         }
+
+        public virtual void SetModified(object entity)
+        {
+            Entry(entity).State = EntityState.Modified;
+        }
     }
 }

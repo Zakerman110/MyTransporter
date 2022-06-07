@@ -52,7 +52,8 @@ namespace Order.DAL.Repositories
         public async Task Update(TEntity item)
         {
             var entity = await FindById(item.Id);
-            _context.Entry(entity).State = EntityState.Detached;
+            //_context.Entry(entity).State = EntityState.Detached;
+            _context.SetModified(entity);
             await Task.Run(() => _dbSet.Update(item));
         }
     }
