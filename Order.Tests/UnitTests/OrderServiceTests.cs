@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Order.Tests
+namespace Order.Tests.UnitTests
 {
     public class OrderServiceTests
     {

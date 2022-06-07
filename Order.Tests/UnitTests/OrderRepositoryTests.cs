@@ -5,7 +5,7 @@ using Order.DAL;
 using Order.DAL.Exceptions;
 using Order.DAL.Interfaces.Repositories;
 using Order.DAL.Repositories;
-using Order.Tests.Mock;
+using Order.Tests.UnitTests.Mock;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Order.Tests
+namespace Order.Tests.UnitTests
 {
     public class OrderRepositoryTests
     {

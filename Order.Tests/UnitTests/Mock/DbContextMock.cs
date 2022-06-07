@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Order.Tests.Mock
+namespace Order.Tests.UnitTests.Mock
 {
     public static class DbContextMock
     {

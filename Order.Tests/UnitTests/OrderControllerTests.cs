@@ -17,7 +17,7 @@ using Order.DAL.Exceptions;
 using Order.WebAPI.Controllers;
 using Xunit;
 
-namespace Order.Tests
+namespace Order.Tests.UnitTests
 {
     public class OrderControllerTests
     {
