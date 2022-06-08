@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Order.Tests.IntegrationTests.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -28,8 +29,11 @@ namespace Order.Tests.IntegrationTests
             _client.SetFakeBearerToken((object)data);
         }
 
-        [Fact]
-        public async Task GET_ReturnsOrders()
+        [Theory]
+        [InlineData("api/order")]
+        [InlineData("api/order/detail")]
+        [InlineData("api/order/1")]
+        public async Task GET_ReturnsPositiveStatusCode(string endpoint)
         {
             /*dynamic data = new ExpandoObject();
             data.sub = Guid.NewGuid();
@@ -38,8 +42,15 @@ namespace Order.Tests.IntegrationTests
             using var client = _fixture.CreateClient();
             _client.SetFakeBearerToken((object)data);*/
 
-            var response = await _client.GetAsync("api/order");
+            var response = await _client.GetAsync(endpoint);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task GET_ReturnsOrders()
+        {
+            var orders = await _client.GetAndDeserialize<IEnumerable<DAL.Entities.Order>>("/api/order");
+            orders.Should().HaveCount(6);
         }
     }
 }
