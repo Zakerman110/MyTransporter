@@ -35,13 +35,6 @@ namespace Order.Tests.IntegrationTests
         [InlineData("api/order/1")]
         public async Task GET_ReturnsPositiveStatusCode(string endpoint)
         {
-            /*dynamic data = new ExpandoObject();
-            data.sub = Guid.NewGuid();
-            data.role = new[] { "sub_role", "admin" };
-
-            using var client = _fixture.CreateClient();
-            _client.SetFakeBearerToken((object)data);*/
-
             var response = await _client.GetAsync(endpoint);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -49,8 +42,25 @@ namespace Order.Tests.IntegrationTests
         [Fact]
         public async Task GET_ReturnsOrders()
         {
+            var appFactory = new ApiWebApplicationFactory();
+            dynamic data = new ExpandoObject();
+            data.sub = Guid.NewGuid();
+            data.role = new[] { "sub_role", "admin" };
+
+            var newClient = appFactory.CreateClient();
+            newClient.SetFakeBearerToken((object)data);
+
+            var orders = await newClient.GetAndDeserialize<IEnumerable<DAL.Entities.Order>>("/api/order");
+            orders.Should().HaveCount(3);
+        }
+
+        [Fact]
+        public async Task Delete_RemainsTwoOrders()
+        {
+            await _client.DeleteAsync("/api/order/1");
+
             var orders = await _client.GetAndDeserialize<IEnumerable<DAL.Entities.Order>>("/api/order");
-            orders.Should().HaveCount(6);
+            orders.Should().HaveCount(2);
         }
     }
 }
