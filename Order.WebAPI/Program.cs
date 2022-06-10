@@ -89,7 +89,8 @@ builder.Services.AddScoped<IVehicleDataClient, VehicleDataClient>();
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddSingleton(MapperBuilder.Build());
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -148,3 +149,5 @@ catch (Exception ex)
 }
 
 app.Run();
+
+public partial class Program { }

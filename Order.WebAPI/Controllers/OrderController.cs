@@ -4,6 +4,7 @@ using Order.BLL.DTO.Requests;
 using Order.BLL.DTO.Responses;
 using Order.BLL.Interfaces.Services;
 using Order.DAL.Entities;
+using Order.DAL.Exceptions;
 
 namespace Order.WebAPI.Controllers
 {
@@ -29,7 +30,7 @@ namespace Order.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<OrderResponse>>> Get()
         {
             try
@@ -37,10 +38,9 @@ namespace Order.WebAPI.Controllers
                 var orders = await _orderService.GetAsync();
                 return Ok(orders);
             }
-            catch (Exception e)
+            catch (NotFoundException e)
             {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+                return NotFound(e.Message);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Order.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<OrderResponse>>> GetDetail(int Id)
+        public async Task<ActionResult<IEnumerable<OrderResponse>>> GetDetail()
         {
             return Ok(await _orderService.GetCompleteAsync());
         }
@@ -150,9 +150,9 @@ namespace Order.WebAPI.Controllers
                 await _orderService.DeleteAsync(Id);
                 return Ok();
             }
-            catch (Exception e)
+            catch (NotFoundException e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+                return NotFound(e.Message);
             }
         }
     }
