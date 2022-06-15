@@ -14,10 +14,12 @@ namespace Order.WebAPI.Controllers
     public class OrderController : ControllerBase
     {
         IOrderService _orderService;
+        private readonly ILogger _logger;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, ILogger logger)
         {
             _orderService = orderService;
+            _logger = logger;
         }
 
         // TEST PURPOUSE!!!
@@ -40,6 +42,7 @@ namespace Order.WebAPI.Controllers
             }
             catch (NotFoundException e)
             {
+                _logger.LogInformation(e.Message);
                 return NotFound(e.Message);
             }
         }

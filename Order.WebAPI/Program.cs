@@ -13,10 +13,32 @@ using Order.DAL.Interfaces;
 using Order.DAL.Interfaces.Repositories;
 using Order.DAL.Repositories;
 using Order.DAL.UnitOfWork;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .Enrich.WithMachineName()
+  .WriteTo.Console()
+  .WriteTo.Elasticsearch(
+    new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElasticConfiguration:Uri"]))
+      {
+        IndexFormat = $"{builder.Configuration["ApplicationName"]}-logs-{builder.Environment.EnvironmentName.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+        AutoRegisterTemplate = true,
+        NumberOfShards = 2,
+        NumberOfReplicas = 1
+      })
+  .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
+  .ReadFrom.Configuration(builder.Configuration)
+  .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddDbContext<MyTransporterOrderContext>(options =>
 {
